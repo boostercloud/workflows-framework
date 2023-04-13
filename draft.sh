@@ -1,20 +1,21 @@
 mkdir -p ./output
 cd output
 files="../book/cover.md $(find ../chapters -type f | sort -t '\0' -n | tr '\n' ' ')"
-bookTitle="Book template"
-fileName="book template"
+fileName="whitepaper"
 
 function generate() {
-    pandoc \
+
+  pandoc \
     $files \
-    -o ".$fileName.$1" \
+    -o "./$fileName.$1" \
     -V colorlinks=true \
     -V linkcolor=blue \
     -V toccolor=gray \
-    --metadata title="$bookTitle"
+    -F mermaid-filter
+
 }
 
 generate "pdf"
 generate "epub"
 
-wslview ".$fileName.pdf"
+wslview "./$fileName.pdf"
