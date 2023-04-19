@@ -1,6 +1,5 @@
 \pagebreak
-# 00 - Railway Event Processor
-*A proposal for a common language to discuss and reason about systems integrations and the business flows that make use of them.*
+# Railway Event Processor
 
 ## When it doubt, your system is probably distributed
 
@@ -20,8 +19,8 @@ The issue with this is that, no matter how simple you think your application is,
 Any integration with these systems, services in your own company, or actually anything that happens outside the memory assigned on your program, like a database, presents four major challenges:
 
 - Orchestration.
-- [Fault tolerance](Integrations%20in%20Line%20of%20Business%20distributed%20syste%208a6b04844a904e7e913c110c2cf5a385/Glossary%20439808fac03744f88e15a88b44fb9d72/Fault%20tolerance%20196d485a295c4d42b84bfac55fc14b7c.md).
-- [Concurrency handling](Integrations%20in%20Line%20of%20Business%20distributed%20syste%208a6b04844a904e7e913c110c2cf5a385/Glossary%20439808fac03744f88e15a88b44fb9d72/Concurrency%20handling%20cd559f36b74a4032a568a57a6ee64e94.md).
+- [Fault tolerance](#fault-tolerance).
+- [Concurrency handling](#concurrency-handling).
 - Communication.
 
 > **!!!** This research looks to address Fault Tolerance and Concurrency Handling, but since they can’t be addressed without taking into account the other two, orchestration will be handled using the [Process Manager Pattern](https://www.enterpriseintegrationpatterns.com/patterns/messaging/ProcessManager.html), with some lessons learned from the Saga Pattern, and Communication will be solved via event streams and read models. It might catch the attention of the reader that, given the spotlight that message streaming platforms have in enterprise environments, to the point that seminal books as [enterprise integration patterns deal almost exclusively with messaging](https://www.enterpriseintegrationpatterns.com/patterns/messaging/Messaging.html), as a matter of fact, the read models that will be used for scheduling can, and often should, be stored via message queues, but that extra step will be omitted for simplicity.
