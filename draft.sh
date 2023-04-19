@@ -18,5 +18,7 @@ function generate() {
 }
 
 generate "pdf"
+generate "epub"
+generate "html"
 
 wslview "./$fileName.pdf"

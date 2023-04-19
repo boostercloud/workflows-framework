@@ -35,7 +35,7 @@ The following example is the creation of an order. So simplify the model, any fa
 stateDiagram-v2
 	state "Make order" as mo
 	state "Reserve stock" as rs
-	state "Continue without missing product(s)?" as cwomp
+	state "Continue without missing product" as cwomp
 	state "Create invoice" as ci
 	state "Create payment attempt" as cpa
 	state "Receive Payment" as tdrp
@@ -46,19 +46,11 @@ stateDiagram-v2
 	state "Order confirmed" as ocf
 	state "Customer support review" as csr
 
-	classDef event fill:#de7316
-	classDef stt fill:olive
-	classDef tdi fill:teal
-
-	class ocf, oc event
-	class mo, rs, ci, cpa, if, ps stt
-	class cwomp, wfuop, tdrp, csr tdi
-
 	[*] --> mo
 	mo --> rs
 	rs --> cwomp: Not enough of some
-  cwomp --> oc: No
-  cwomp --> ci: Yes
+    cwomp --> oc: No
+    cwomp --> ci: Yes
 	rs --> ci: Enough
 	ci --> cpa
 	cpa --> tdrp
@@ -70,8 +62,16 @@ stateDiagram-v2
 	csr --> csr: Cannot expire
 	tdrp --> if
 	if --> wfuop
-	wfuop--> tdrp: Decided to try again
-	wfuop--> oc: Decided to cancel
+	wfuop --> tdrp: Decided to try again
+	wfuop --> oc: Decided to cancel
 	oc --> [*]
 	ocf --> [*]
+
+	classDef event fill:#de7316
+	classDef stt fill:olive
+	classDef tdi fill:teal
+
+	class ocf, oc event
+	class mo, rs, ci, cpa, if, ps stt
+	class cwomp, wfuop, tdrp, csr tdi
 ```
