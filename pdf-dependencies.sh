@@ -6,4 +6,4 @@ sudo apt-get install \
   texlive-latex-extra \
   texlive-fonts-extra
 
-npm install --global mermaid-filter
+npm install --global @marcelmaatkamp/mermaid-filter
