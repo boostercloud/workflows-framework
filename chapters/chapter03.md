@@ -1,4 +1,3 @@
-\pagebreak
 # The Task
 
 An abstraction over a single step in a workflow, it is modeled after a state of a state machine, and all its possible results, including those of failure, will point out to a different task.

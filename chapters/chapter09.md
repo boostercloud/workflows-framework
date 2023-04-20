@@ -1,4 +1,3 @@
-\pagebreak
 # The Workflow
 
 # The core tenets of the framework

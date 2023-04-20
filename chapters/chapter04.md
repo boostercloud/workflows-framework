@@ -1,4 +1,3 @@
-\pagebreak
 # The transition
 
 One key element of the Railway Event Processor is that there is no concept of a failed task. Even for technical faults, the inability to attempt the task has to be translated into a business outcome.

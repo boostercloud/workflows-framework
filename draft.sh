@@ -1,6 +1,17 @@
-mkdir -p ./output
+mkdir -p ./output/tmp
 cd output
-files="../book/cover.md $(find ../chapters -type f | sort -t '\0' -n | tr '\n' ' ')"
+cp -r ../book ./tmp
+cp -r ../chapters ./tmp
+cp -r ../images ./tmp
+
+for fl in $(find ./tmp/chapters -type f)
+do
+  content=$(cat $fl)
+  echo $'\\pagebreak' > $fl
+  echo "$content" >> $fl
+done
+
+files="./tmp/book/cover.md $(find ./tmp/chapters -type f | sort -t '\0' -n | tr '\n' ' ')"
 fileName="whitepaper"
 
 function generate() {
@@ -18,7 +29,7 @@ function generate() {
 }
 
 generate "pdf"
-generate "epub"
-generate "html"
+
+#rm -rf ./tmp
 
 wslview "./$fileName.pdf"

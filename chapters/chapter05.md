@@ -1,4 +1,3 @@
-\pagebreak
 # Technical categories of tasks
 
 ## External action required

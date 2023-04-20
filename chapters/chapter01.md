@@ -1,4 +1,3 @@
-\pagebreak
 # The nature of integrations: Orchestration, Fault Tolerance, Concurrency, and Communication
 
 ## The problem

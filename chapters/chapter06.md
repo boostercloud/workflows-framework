@@ -1,4 +1,3 @@
-\pagebreak
 # Business concerns of a Black Boxed Task
 
 This includes all the factors we need to take into account when making compromises over black-boxed tasks. This part of the framework is not formal, it aims to provide a checklist of factors to consider when making a decision, the decision itself is formal, as it will have an abstraction on top of it.

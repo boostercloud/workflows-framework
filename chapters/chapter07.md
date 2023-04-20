@@ -1,4 +1,3 @@
-\pagebreak
 # Compromise Decision of Black Boxed Tasks
 
 Once taken the concerns into account, a decision has to be made about handling possible failure for the task:

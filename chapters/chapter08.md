@@ -1,4 +1,3 @@
-\pagebreak
 # Algorithms for each kind of Task
 
 # Every task requires:

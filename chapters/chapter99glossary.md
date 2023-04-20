@@ -1,4 +1,3 @@
-\pagebreak
 # Glossary
 
 #### Code safety:

@@ -1,4 +1,3 @@
-\pagebreak
 # Railway Event Processor
 
 ## When it doubt, your system is probably distributed
