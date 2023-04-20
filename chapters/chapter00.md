@@ -26,7 +26,7 @@ Any integration with these systems, services in your own company, or actually an
 
 The language described in this paper has the aspiration to be a framework usable as a bridge between engineering and business teams, so the degree of complexity of any given integration is visible and understandable by everybody involved.
 
-First, the problem will be laid out in terms of the nature of integrations and why they are a constant challenge that requires . Then the core concepts will be introduced, the `Task`, the `Compromise`, and the `Transition`.
+First, the problem will be laid out in terms of the nature of integrations and why they are a frequent source of errors and technical challenges. Then the core concepts will be introduced, the `Task`, the `Compromise`, and the `Transition`.
 
 All of these will be put together with an example in the `Workflow` definition.
 
