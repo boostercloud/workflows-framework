@@ -30,12 +30,12 @@ As complex as the decisions for faults in a `Task` might seem, there are only th
 
 The following example is the creation of an order. So simplify the model, any fault and expiration result that maps to a default exit, `Order cancelled` in this case, can be left as an implicit mapping.
 
-**Legend:**
+### Legend
 ```mermaid
 stateDiagram-v2
-	state "event" as eventBox
-	state "stt" as sttBox
-	state "tdi" as tdiBox
+	state "Event" as eventBox
+	state "State" as sttBox
+	state "To Do Item" as tdiBox
 
 	classDef event fill:#de7316
 	classDef stt fill:olive
