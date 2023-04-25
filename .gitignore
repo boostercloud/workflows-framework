@@ -1,2 +1,16 @@
 /output/**
 **/.idea/**
+
+**/.DS_Store
+**/tla/*.toolbox/model
+**/tla/*.toolbox/*aux
+**/tla/*.toolbox/*.log
+**/tla/*.toolbox/*.pdf
+**/tla/*.toolbox/*.tex
+**/tla/*.toolbox/*___model_SnapShot*.launch
+**/tla/*.toolbox/**/*.tla
+**/tla/*.toolbox/**/*.out
+**/tla/*.toolbox/**/MC.cfg
+**/tla/*.pdf
+**/tla/*.old
+**/*~
