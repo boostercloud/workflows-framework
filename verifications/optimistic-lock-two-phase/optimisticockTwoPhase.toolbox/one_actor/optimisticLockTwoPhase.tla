@@ -19,28 +19,38 @@ variable
   stock = 1,
   deliveryOrders = <<>>;
 define
-OrdersWereMade ==
-  <>[] (deliveryOrders /= <<>>)
+OrdersWereMade == <>[] (deliveryOrders /= <<>>)
+
+OrdersWereVerified ==
+  <>[] (\A oIdx \in DOMAIN deliveryOrders: deliveryOrders[oIdx].confirmed)
+
+NeverInTheRed == stock >= 0
 end define;
   
   
 begin
-
-while stock > 0 do
-  deliveryOrders :=
-    Append(
-      deliveryOrders,
-      [ amount |-> 1, confirmed |-> FALSE ]);
-  \*deliveryOrders[0].confirmed := TRUE;
-  stock := stock - 1;
-end while;
+Loop:
+  while stock > 0 do
+    CreateOrder:
+      deliveryOrders :=
+        Append(
+          deliveryOrders,
+          [ amount |-> 1, confirmed |-> FALSE ]);
+    ConfirmOrder:
+      deliveryOrders[1].confirmed := TRUE;
+      stock := stock - 1;
+  end while;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "1f10c94d" /\ chksum(tla) = "d8bb88ab")
+\* BEGIN TRANSLATION (chksum(pcal) = "3dd9e18" /\ chksum(tla) = "649d94cf")
 VARIABLES stock, deliveryOrders, pc
 
 (* define statement *)
-OrdersWereMade ==
-  <>[] (deliveryOrders /= <<>>)
+OrdersWereMade == <>[] (deliveryOrders /= <<>>)
+
+OrdersWereVerified ==
+  <>[] (\A oIdx \in DOMAIN deliveryOrders: deliveryOrders[oIdx].confirmed)
+
+NeverInTheRed == stock >= 0
 
 
 vars == << stock, deliveryOrders, pc >>
@@ -48,22 +58,30 @@ vars == << stock, deliveryOrders, pc >>
 Init == (* Global variables *)
         /\ stock = 1
         /\ deliveryOrders = <<>>
-        /\ pc = "Lbl_1"
+        /\ pc = "Loop"
 
-Lbl_1 == /\ pc = "Lbl_1"
-         /\ IF stock > 0
-               THEN /\ deliveryOrders' = Append(
-                                           deliveryOrders,
-                                           [ amount |-> 1, confirmed |-> FALSE ])
-                    /\ stock' = stock - 1
-                    /\ pc' = "Lbl_1"
-               ELSE /\ pc' = "Done"
-                    /\ UNCHANGED << stock, deliveryOrders >>
+Loop == /\ pc = "Loop"
+        /\ IF stock > 0
+              THEN /\ pc' = "CreateOrder"
+              ELSE /\ pc' = "Done"
+        /\ UNCHANGED << stock, deliveryOrders >>
+
+CreateOrder == /\ pc = "CreateOrder"
+               /\ deliveryOrders' = Append(
+                                      deliveryOrders,
+                                      [ amount |-> 1, confirmed |-> FALSE ])
+               /\ pc' = "ConfirmOrder"
+               /\ stock' = stock
+
+ConfirmOrder == /\ pc = "ConfirmOrder"
+                /\ deliveryOrders' = [deliveryOrders EXCEPT ![1].confirmed = TRUE]
+                /\ stock' = stock - 1
+                /\ pc' = "Loop"
 
 (* Allow infinite stuttering to prevent deadlock on termination. *)
 Terminating == pc = "Done" /\ UNCHANGED vars
 
-Next == Lbl_1
+Next == Loop \/ CreateOrder \/ ConfirmOrder
            \/ Terminating
 
 Spec == /\ Init /\ [][Next]_vars
