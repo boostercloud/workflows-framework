@@ -44,7 +44,7 @@ To implement this function, it is important to take into account the “retriabi
 2. Up to `n` times
 3. At most once
 
-In general, tasks falling into the first category can be retried until the timeout function stops the cycle. If that is the case, no retry backoff function is needed.
+In general, tasks falling into the first category can be retried until the timeout function stops the cycle. If that is the case, no retry back-off function is needed.
 
 ### Fault tolerance
 
