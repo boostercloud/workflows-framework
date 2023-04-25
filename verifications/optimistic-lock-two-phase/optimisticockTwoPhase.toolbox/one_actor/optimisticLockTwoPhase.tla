@@ -1,5 +1,5 @@
 ----------------------- MODULE optimisticLockTwoPhase -----------------------
-EXTENDS TLC, Integers
+EXTENDS TLC, Integers, Sequences
 (***************************************************************************)
 (* Algorithm to perform a two step action in an external system in a       *)
 (* concurrency resilient way.                                              *)
@@ -18,14 +18,30 @@ EXTENDS TLC, Integers
 variable
   stock = 1,
   deliveryOrders = <<>>;
+define
+OrdersWereMade ==
+  <>[] (deliveryOrders /= <<>>)
+end define;
+  
+  
 begin
 
 while stock > 0 do
+  deliveryOrders :=
+    Append(
+      deliveryOrders,
+      [ amount |-> 1, confirmed |-> FALSE ]);
+  \*deliveryOrders[0].confirmed := TRUE;
   stock := stock - 1;
 end while;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "1b4f11eb" /\ chksum(tla) = "d6f12ce0")
+\* BEGIN TRANSLATION (chksum(pcal) = "1f10c94d" /\ chksum(tla) = "d8bb88ab")
 VARIABLES stock, deliveryOrders, pc
+
+(* define statement *)
+OrdersWereMade ==
+  <>[] (deliveryOrders /= <<>>)
+
 
 vars == << stock, deliveryOrders, pc >>
 
@@ -36,11 +52,13 @@ Init == (* Global variables *)
 
 Lbl_1 == /\ pc = "Lbl_1"
          /\ IF stock > 0
-               THEN /\ stock' = stock - 1
+               THEN /\ deliveryOrders' = Append(
+                                           deliveryOrders,
+                                           [ amount |-> 1, confirmed |-> FALSE ])
+                    /\ stock' = stock - 1
                     /\ pc' = "Lbl_1"
                ELSE /\ pc' = "Done"
-                    /\ stock' = stock
-         /\ UNCHANGED deliveryOrders
+                    /\ UNCHANGED << stock, deliveryOrders >>
 
 (* Allow infinite stuttering to prevent deadlock on termination. *)
 Terminating == pc = "Done" /\ UNCHANGED vars
