@@ -27,9 +27,9 @@ OrdersWereVerified ==
 NeverInTheRed == stock >= 0
 end define;
   
-  
+process orderer \in { "ordr" }
 begin
-Loop:
+  Loop:
   while stock > 0 do
     CreateOrder:
       deliveryOrders :=
@@ -40,8 +40,9 @@ Loop:
       deliveryOrders[1].confirmed := TRUE;
       stock := stock - deliveryOrders[1].amount;
   end while;
+end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "3dd9e18" /\ chksum(tla) = "649d94cf")
+\* BEGIN TRANSLATION (chksum(pcal) = "d4d515c5" /\ chksum(tla) = "d72285d7")
 VARIABLES stock, deliveryOrders, pc
 
 (* define statement *)
@@ -55,39 +56,44 @@ NeverInTheRed == stock >= 0
 
 vars == << stock, deliveryOrders, pc >>
 
+ProcSet == ({ "ordr" })
+
 Init == (* Global variables *)
-        /\ stock = 1
+        /\ stock = 2
         /\ deliveryOrders = <<>>
-        /\ pc = "Loop"
+        /\ pc = [self \in ProcSet |-> "Loop"]
 
-Loop == /\ pc = "Loop"
-        /\ IF stock > 0
-              THEN /\ pc' = "CreateOrder"
-              ELSE /\ pc' = "Done"
-        /\ UNCHANGED << stock, deliveryOrders >>
+Loop(self) == /\ pc[self] = "Loop"
+              /\ IF stock > 0
+                    THEN /\ pc' = [pc EXCEPT ![self] = "CreateOrder"]
+                    ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
+              /\ UNCHANGED << stock, deliveryOrders >>
 
-CreateOrder == /\ pc = "CreateOrder"
-               /\ deliveryOrders' = Append(
-                                      deliveryOrders,
-                                      [ amount |-> 1, confirmed |-> FALSE ])
-               /\ pc' = "ConfirmOrder"
-               /\ stock' = stock
+CreateOrder(self) == /\ pc[self] = "CreateOrder"
+                     /\ deliveryOrders' = Append(
+                                            deliveryOrders,
+                                            [ amount |-> 1, confirmed |-> FALSE ])
+                     /\ pc' = [pc EXCEPT ![self] = "ConfirmOrder"]
+                     /\ stock' = stock
 
-ConfirmOrder == /\ pc = "ConfirmOrder"
-                /\ deliveryOrders' = [deliveryOrders EXCEPT ![1].confirmed = TRUE]
-                /\ stock' = stock - 1
-                /\ pc' = "Loop"
+ConfirmOrder(self) == /\ pc[self] = "ConfirmOrder"
+                      /\ deliveryOrders' = [deliveryOrders EXCEPT ![1].confirmed = TRUE]
+                      /\ stock' = stock - deliveryOrders'[1].amount
+                      /\ pc' = [pc EXCEPT ![self] = "Loop"]
+
+orderer(self) == Loop(self) \/ CreateOrder(self) \/ ConfirmOrder(self)
 
 (* Allow infinite stuttering to prevent deadlock on termination. *)
-Terminating == pc = "Done" /\ UNCHANGED vars
+Terminating == /\ \A self \in ProcSet: pc[self] = "Done"
+               /\ UNCHANGED vars
 
-Next == Loop \/ CreateOrder \/ ConfirmOrder
+Next == (\E self \in { "ordr" }: orderer(self))
            \/ Terminating
 
 Spec == /\ Init /\ [][Next]_vars
         /\ WF_vars(Next)
 
-Termination == <>(pc = "Done")
+Termination == <>(\A self \in ProcSet: pc[self] = "Done")
 
 \* END TRANSLATION 
 
