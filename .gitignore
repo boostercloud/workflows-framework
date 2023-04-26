@@ -2,15 +2,16 @@
 **/.idea/**
 
 **/.DS_Store
-**/tla/*.toolbox/model
-**/tla/*.toolbox/*aux
-**/tla/*.toolbox/*.log
-**/tla/*.toolbox/*.pdf
-**/tla/*.toolbox/*.tex
-**/tla/*.toolbox/*___model_SnapShot*.launch
-**/tla/*.toolbox/**/*.tla
-**/tla/*.toolbox/**/*.out
-**/tla/*.toolbox/**/MC.cfg
-**/tla/*.pdf
-**/tla/*.old
+**/verifications/**/*.toolbox/model
+**/verifications/**/*.toolbox/*aux
+**/verifications/**/*.toolbox/*.log
+**/verifications/**/*.toolbox/*.pdf
+**/verifications/**/*.toolbox/*.tex
+**/verifications/**/*.toolbox/*___*_SnapShot*.launch
+**/verifications/**/*_SnapShot_*/*
+**/verifications/**/*.toolbox/**/*.tla
+**/verifications/**/*.toolbox/**/*.out
+**/verifications/**/*.toolbox/**/MC.cfg
+**/verifications/**/*.pdf
+**/verifications/**/*.old
 **/*~

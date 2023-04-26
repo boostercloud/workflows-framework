@@ -1,8 +1,11 @@
 ----------------------- MODULE optimisticLockTwoPhase -----------------------
 EXTENDS TLC, Integers, Sequences
+CONSTANTS InitialStock
 (***************************************************************************)
 (* Algorithm to perform a two step action in an external system in a       *)
-(* concurrency resilient way.                                              *)
+(* concurrency resilient way.  It is assumed that the third party allows   *)
+(* us to introduce a unique way to identify the action in all of its       *)
+(* steps.                                                                  *)
 (*                                                                         *)
 (* The resulting algorithm should:                                         *)
 (*                                                                         *)
@@ -16,78 +19,122 @@ EXTENDS TLC, Integers, Sequences
 
 (*--fair algorithm optimisticLockTwoPhase
 variable
-  stock = 2,
-  deliveryOrders = <<>>;
+  stock = InitialStock,
+  deliveries = <<>>,
+  orders = [ id: 1..InitialStock , processed: {FALSE} ];
 define
-OrdersWereMade == <>[] (deliveryOrders /= <<>>)
+DeliveriesWereMade == <>[] (deliveries /= <<>>)
 
-OrdersWereVerified ==
-  <>[] (\A oIdx \in DOMAIN deliveryOrders: deliveryOrders[oIdx].confirmed)
+DeliveriesWereVerified ==
+  <>[] (\A oIdx \in DOMAIN deliveries: deliveries[oIdx].confirmed)
 
 NeverInTheRed == stock >= 0
+
+AreTherePendingOrders ==
+  (\E o \in orders: o.processed = FALSE)
 end define;
   
-process orderer \in { "ordr" }
+process orderProcessor \in { "ord1" } 
+variables dIdx = -1, orderId = -1;
 begin
   Loop:
-  while stock > 0 do
-    CreateOrder:
-      deliveryOrders :=
+  while AreTherePendingOrders do
+    PickOrder:
+      orderId := (CHOOSE o \in orders: o.processed = FALSE).id;
+    CreateDelivery:
+      deliveries :=
         Append(
-          deliveryOrders,
-          [ amount |-> 1, confirmed |-> FALSE ]);
-    ConfirmOrder:
-      deliveryOrders[1].confirmed := TRUE;
-      stock := stock - deliveryOrders[1].amount;
+          deliveries,
+          [ amount |-> 1, confirmed |-> FALSE, orderID |-> orderId ]);
+    ConfirmDelivery:
+      dIdx := CHOOSE di \in DOMAIN deliveries: deliveries[di].orderID = orderId;
+      deliveries[dIdx].confirmed := TRUE;
+    ThirdPartyReducesStock:
+      stock := stock - deliveries[1].amount;
+    MarkAsProcessed:
+      orders := 
+        (orders \ {CHOOSE o \in orders: o.id = orderId})
+        \union
+        {[ processed |-> TRUE, orderId |-> orderId]};
   end while;
 end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "d4d515c5" /\ chksum(tla) = "d72285d7")
-VARIABLES stock, deliveryOrders, pc
+\* BEGIN TRANSLATION (chksum(pcal) = "b57a2186" /\ chksum(tla) = "68f0cfbd")
+VARIABLES stock, deliveries, orders, pc
 
 (* define statement *)
-OrdersWereMade == <>[] (deliveryOrders /= <<>>)
+DeliveriesWereMade == <>[] (deliveries /= <<>>)
 
-OrdersWereVerified ==
-  <>[] (\A oIdx \in DOMAIN deliveryOrders: deliveryOrders[oIdx].confirmed)
+DeliveriesWereVerified ==
+  <>[] (\A oIdx \in DOMAIN deliveries: deliveries[oIdx].confirmed)
 
 NeverInTheRed == stock >= 0
 
+AreTherePendingOrders ==
+  (\E o \in orders: o.processed = FALSE)
 
-vars == << stock, deliveryOrders, pc >>
+VARIABLES dIdx, orderId
 
-ProcSet == ({ "ordr" })
+vars == << stock, deliveries, orders, pc, dIdx, orderId >>
+
+ProcSet == ({ "ord1" })
 
 Init == (* Global variables *)
-        /\ stock = 2
-        /\ deliveryOrders = <<>>
+        /\ stock = InitialStock
+        /\ deliveries = <<>>
+        /\ orders = [ id: 1..InitialStock , processed: {FALSE} ]
+        (* Process orderProcessor *)
+        /\ dIdx = [self \in { "ord1" } |-> -1]
+        /\ orderId = [self \in { "ord1" } |-> -1]
         /\ pc = [self \in ProcSet |-> "Loop"]
 
 Loop(self) == /\ pc[self] = "Loop"
-              /\ IF stock > 0
-                    THEN /\ pc' = [pc EXCEPT ![self] = "CreateOrder"]
+              /\ IF AreTherePendingOrders
+                    THEN /\ pc' = [pc EXCEPT ![self] = "PickOrder"]
                     ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
-              /\ UNCHANGED << stock, deliveryOrders >>
+              /\ UNCHANGED << stock, deliveries, orders, dIdx, orderId >>
 
-CreateOrder(self) == /\ pc[self] = "CreateOrder"
-                     /\ deliveryOrders' = Append(
-                                            deliveryOrders,
-                                            [ amount |-> 1, confirmed |-> FALSE ])
-                     /\ pc' = [pc EXCEPT ![self] = "ConfirmOrder"]
-                     /\ stock' = stock
+PickOrder(self) == /\ pc[self] = "PickOrder"
+                   /\ orderId' = [orderId EXCEPT ![self] = (CHOOSE o \in orders: o.processed = FALSE).id]
+                   /\ pc' = [pc EXCEPT ![self] = "CreateDelivery"]
+                   /\ UNCHANGED << stock, deliveries, orders, dIdx >>
 
-ConfirmOrder(self) == /\ pc[self] = "ConfirmOrder"
-                      /\ deliveryOrders' = [deliveryOrders EXCEPT ![1].confirmed = TRUE]
-                      /\ stock' = stock - deliveryOrders'[1].amount
-                      /\ pc' = [pc EXCEPT ![self] = "Loop"]
+CreateDelivery(self) == /\ pc[self] = "CreateDelivery"
+                        /\ deliveries' = Append(
+                                           deliveries,
+                                           [ amount |-> 1, confirmed |-> FALSE, orderID |-> orderId[self] ])
+                        /\ pc' = [pc EXCEPT ![self] = "ConfirmDelivery"]
+                        /\ UNCHANGED << stock, orders, dIdx, orderId >>
 
-orderer(self) == Loop(self) \/ CreateOrder(self) \/ ConfirmOrder(self)
+ConfirmDelivery(self) == /\ pc[self] = "ConfirmDelivery"
+                         /\ dIdx' = [dIdx EXCEPT ![self] = CHOOSE di \in DOMAIN deliveries: deliveries[di].orderID = orderId[self]]
+                         /\ deliveries' = [deliveries EXCEPT ![dIdx'[self]].confirmed = TRUE]
+                         /\ pc' = [pc EXCEPT ![self] = "ThirdPartyReducesStock"]
+                         /\ UNCHANGED << stock, orders, orderId >>
+
+ThirdPartyReducesStock(self) == /\ pc[self] = "ThirdPartyReducesStock"
+                                /\ stock' = stock - deliveries[1].amount
+                                /\ pc' = [pc EXCEPT ![self] = "MarkAsProcessed"]
+                                /\ UNCHANGED << deliveries, orders, dIdx, 
+                                                orderId >>
+
+MarkAsProcessed(self) == /\ pc[self] = "MarkAsProcessed"
+                         /\ orders' = (orders \ {CHOOSE o \in orders: o.id = orderId[self]})
+                                      \union
+                                      {[ processed |-> TRUE, orderId |-> orderId[self]]}
+                         /\ pc' = [pc EXCEPT ![self] = "Loop"]
+                         /\ UNCHANGED << stock, deliveries, dIdx, orderId >>
+
+orderProcessor(self) == Loop(self) \/ PickOrder(self)
+                           \/ CreateDelivery(self) \/ ConfirmDelivery(self)
+                           \/ ThirdPartyReducesStock(self)
+                           \/ MarkAsProcessed(self)
 
 (* Allow infinite stuttering to prevent deadlock on termination. *)
 Terminating == /\ \A self \in ProcSet: pc[self] = "Done"
                /\ UNCHANGED vars
 
-Next == (\E self \in { "ordr" }: orderer(self))
+Next == (\E self \in { "ord1" }: orderProcessor(self))
            \/ Terminating
 
 Spec == /\ Init /\ [][Next]_vars
