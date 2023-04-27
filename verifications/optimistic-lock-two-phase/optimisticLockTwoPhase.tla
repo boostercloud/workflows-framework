@@ -1,4 +1,6 @@
 ----------------------- MODULE optimisticLockTwoPhase -----------------------
+EXTENDS Integers, Sequences
+CONSTANT OrderCount
 (***************************************************************************)
 (* Algorithm to perform a two step action in an external system in a       *)
 (* concurrency resilient way.  It is assumed that the third party allows   *)
@@ -41,6 +43,7 @@
 
 (*--fair algorithm optimisticLockTwoPhase
 variables
+  orders = [ o \in 1..OrderCount |-> [ id |-> o, processed |-> FALSE ] ],
   deliveries = <<>>;
   
 define
@@ -52,8 +55,8 @@ end define;
 begin
 skip;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "5ac6f28a" /\ chksum(tla) = "58913a53")
-VARIABLES deliveries, pc
+\* BEGIN TRANSLATION (chksum(pcal) = "dfb0921" /\ chksum(tla) = "30196560")
+VARIABLES orders, deliveries, pc
 
 (* define statement *)
 ThereIsADeliveryEventually ==
@@ -62,16 +65,17 @@ ThereIsADeliveryEventually ==
     /\ \A d \in deliveries: d.confirmed
 
 
-vars == << deliveries, pc >>
+vars == << orders, deliveries, pc >>
 
 Init == (* Global variables *)
+        /\ orders = [ o \in 1..OrderCount |-> [ id |-> o, processed |-> FALSE ] ]
         /\ deliveries = <<>>
         /\ pc = "Lbl_1"
 
 Lbl_1 == /\ pc = "Lbl_1"
          /\ TRUE
          /\ pc' = "Done"
-         /\ UNCHANGED deliveries
+         /\ UNCHANGED << orders, deliveries >>
 
 (* Allow infinite stuttering to prevent deadlock on termination. *)
 Terminating == pc = "Done" /\ UNCHANGED vars
