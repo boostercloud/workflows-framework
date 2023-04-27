@@ -44,9 +44,7 @@ CONSTANT OrderCount
 (*--fair algorithm optimisticLockTwoPhase
 variables
   orders = [ o \in 1..OrderCount |-> [ id |-> o, processed |-> FALSE ] ],
-  deliveries = <<>>,
-  orderIndex = -1,
-  deliveryIndex = -1;
+  deliveries = <<>>;
   
 define
 ConfirmedDeliveries == SelectSeq(deliveries,LAMBDA d: d.confirmed)
@@ -58,18 +56,27 @@ AllOrdersDeliveredOnce ==
        \E dIdx \in DOMAIN ConfirmedDeliveries:
        orders[oIdx].id = deliveries[dIdx].id
 end define;
+process main = "processor"
+variables 
+  orderIndex = -1,
+  deliveryIndex = -1;
 begin
-
-while \E oIdx \in DOMAIN orders: ~orders[oIdx].processed do
-  orderIndex := CHOOSE oIdx \in DOMAIN orders: ~orders[oIdx].processed;
-  deliveries := Append(deliveries, [ id |-> orders[orderIndex].id, confirmed |-> FALSE ]);
-  deliveryIndex := CHOOSE dIdx \in DOMAIN deliveries: ~deliveries[dIdx].confirmed;
-  deliveries[deliveryIndex].confirmed := TRUE;
-  orders[orderIndex].processed := TRUE;
-end while;
+Loop:
+  while \E oIdx \in DOMAIN orders: ~orders[oIdx].processed do
+    ChooseOrder:
+      orderIndex := CHOOSE oIdx \in DOMAIN orders: ~orders[oIdx].processed;
+    CreateDelivery:
+      deliveries := Append(deliveries, [ id |-> orders[orderIndex].id, confirmed |-> FALSE ]);
+      deliveryIndex := Len(deliveries);
+    ConfirmDelivery:
+      deliveries[deliveryIndex].confirmed := TRUE;
+    MarkOrderAsProcessed:
+      orders[orderIndex].processed := TRUE;
+  end while;
+end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "59b34f4d" /\ chksum(tla) = "cf11896c")
-VARIABLES orders, deliveries, orderIndex, deliveryIndex, pc
+\* BEGIN TRANSLATION (chksum(pcal) = "5a7a025b" /\ chksum(tla) = "667d52a3")
+VARIABLES orders, deliveries, pc
 
 (* define statement *)
 ConfirmedDeliveries == SelectSeq(deliveries,LAMBDA d: d.confirmed)
@@ -81,42 +88,61 @@ AllOrdersDeliveredOnce ==
        \E dIdx \in DOMAIN ConfirmedDeliveries:
        orders[oIdx].id = deliveries[dIdx].id
 
+VARIABLES orderIndex, deliveryIndex
 
-vars == << orders, deliveries, orderIndex, deliveryIndex, pc >>
+vars == << orders, deliveries, pc, orderIndex, deliveryIndex >>
+
+ProcSet == {"processor"}
 
 Init == (* Global variables *)
         /\ orders = [ o \in 1..OrderCount |-> [ id |-> o, processed |-> FALSE ] ]
         /\ deliveries = <<>>
+        (* Process main *)
         /\ orderIndex = -1
         /\ deliveryIndex = -1
-        /\ pc = "Lbl_1"
+        /\ pc = [self \in ProcSet |-> "Loop"]
 
-Lbl_1 == /\ pc = "Lbl_1"
-         /\ IF \E oIdx \in DOMAIN orders: ~orders[oIdx].processed
-               THEN /\ orderIndex' = (CHOOSE oIdx \in DOMAIN orders: ~orders[oIdx].processed)
-                    /\ deliveries' = Append(deliveries, [ id |-> orders[orderIndex'].id, confirmed |-> FALSE ])
-                    /\ deliveryIndex' = (CHOOSE dIdx \in DOMAIN deliveries': ~deliveries'[dIdx].confirmed)
-                    /\ pc' = "Lbl_2"
-               ELSE /\ pc' = "Done"
-                    /\ UNCHANGED << deliveries, orderIndex, deliveryIndex >>
-         /\ UNCHANGED orders
+Loop == /\ pc["processor"] = "Loop"
+        /\ IF \E oIdx \in DOMAIN orders: ~orders[oIdx].processed
+              THEN /\ pc' = [pc EXCEPT !["processor"] = "ChooseOrder"]
+              ELSE /\ pc' = [pc EXCEPT !["processor"] = "Done"]
+        /\ UNCHANGED << orders, deliveries, orderIndex, deliveryIndex >>
 
-Lbl_2 == /\ pc = "Lbl_2"
-         /\ deliveries' = [deliveries EXCEPT ![deliveryIndex].confirmed = TRUE]
-         /\ orders' = [orders EXCEPT ![orderIndex].processed = TRUE]
-         /\ pc' = "Lbl_1"
-         /\ UNCHANGED << orderIndex, deliveryIndex >>
+ChooseOrder == /\ pc["processor"] = "ChooseOrder"
+               /\ orderIndex' = (CHOOSE oIdx \in DOMAIN orders: ~orders[oIdx].processed)
+               /\ pc' = [pc EXCEPT !["processor"] = "CreateDelivery"]
+               /\ UNCHANGED << orders, deliveries, deliveryIndex >>
+
+CreateDelivery == /\ pc["processor"] = "CreateDelivery"
+                  /\ deliveries' = Append(deliveries, [ id |-> orders[orderIndex].id, confirmed |-> FALSE ])
+                  /\ deliveryIndex' = Len(deliveries')
+                  /\ pc' = [pc EXCEPT !["processor"] = "ConfirmDelivery"]
+                  /\ UNCHANGED << orders, orderIndex >>
+
+ConfirmDelivery == /\ pc["processor"] = "ConfirmDelivery"
+                   /\ deliveries' = [deliveries EXCEPT ![deliveryIndex].confirmed = TRUE]
+                   /\ pc' = [pc EXCEPT !["processor"] = "MarkOrderAsProcessed"]
+                   /\ UNCHANGED << orders, orderIndex, deliveryIndex >>
+
+MarkOrderAsProcessed == /\ pc["processor"] = "MarkOrderAsProcessed"
+                        /\ orders' = [orders EXCEPT ![orderIndex].processed = TRUE]
+                        /\ pc' = [pc EXCEPT !["processor"] = "Loop"]
+                        /\ UNCHANGED << deliveries, orderIndex, deliveryIndex >>
+
+main == Loop \/ ChooseOrder \/ CreateDelivery \/ ConfirmDelivery
+           \/ MarkOrderAsProcessed
 
 (* Allow infinite stuttering to prevent deadlock on termination. *)
-Terminating == pc = "Done" /\ UNCHANGED vars
+Terminating == /\ \A self \in ProcSet: pc[self] = "Done"
+               /\ UNCHANGED vars
 
-Next == Lbl_1 \/ Lbl_2
+Next == main
            \/ Terminating
 
 Spec == /\ Init /\ [][Next]_vars
         /\ WF_vars(Next)
 
-Termination == <>(pc = "Done")
+Termination == <>(\A self \in ProcSet: pc[self] = "Done")
 
 \* END TRANSLATION 
 
