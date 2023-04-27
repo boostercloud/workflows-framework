@@ -26,20 +26,52 @@
 (* if there's no deterministic way to find the process that started first. *)
 (***************************************************************************)
 
+(***************************************************************************)
+(* The process that will be modelled after an integration with a third     *)
+(* party that manages logistics.                                           *)
+(*                                                                         *)
+(* A delivery must be created to send an order to the customer.            *)
+(*                                                                         *)
+(* The delivery must be linked to an order.                                *)
+(*                                                                         *)
+(* The delivery must be confirmed.                                         *)
+(*                                                                         *)
+(* Only one delivery per order must be confirmed.                          *)
+(***************************************************************************)
+
 (*--fair algorithm optimisticLockTwoPhase
+variables
+  deliveries = <<>>;
+  
+define
+ThereIsADeliveryEventually ==
+  <>[]
+    /\ deliveries /= <<>>
+    /\ \A d \in deliveries: d.confirmed
+end define;
 begin
 skip;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "c64be8ab" /\ chksum(tla) = "cb7cbc69")
-VARIABLE pc
+\* BEGIN TRANSLATION (chksum(pcal) = "5ac6f28a" /\ chksum(tla) = "58913a53")
+VARIABLES deliveries, pc
 
-vars == << pc >>
+(* define statement *)
+ThereIsADeliveryEventually ==
+  <>[]
+    /\ deliveries /= <<>>
+    /\ \A d \in deliveries: d.confirmed
 
-Init == /\ pc = "Lbl_1"
+
+vars == << deliveries, pc >>
+
+Init == (* Global variables *)
+        /\ deliveries = <<>>
+        /\ pc = "Lbl_1"
 
 Lbl_1 == /\ pc = "Lbl_1"
          /\ TRUE
          /\ pc' = "Done"
+         /\ UNCHANGED deliveries
 
 (* Allow infinite stuttering to prevent deadlock on termination. *)
 Terminating == pc = "Done" /\ UNCHANGED vars

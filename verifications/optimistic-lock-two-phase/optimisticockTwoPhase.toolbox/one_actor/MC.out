@@ -2,7 +2,7 @@
 TLC2 Version 2.16 of 31 December 2020 (rev: cdddf55)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 75 and seed -4959030855888017351 with 10 workers on 20 cores with 2405MB heap and 5408MB offheap memory [pid: 28660] (Windows 10 10.0 amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 94 and seed 6224718361616702927 with 10 workers on 20 cores with 2405MB heap and 5408MB offheap memory [pid: 34340] (Windows 10 10.0 amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
@@ -24,83 +24,97 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2023-04-27 13:16:03)
+Starting... (2023-04-27 13:24:49)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2212:0 @!@!@
-Implied-temporal checking--satisfiability problem has 1 branches.
+Implied-temporal checking--satisfiability problem has 2 branches.
 @!@!@ENDMSG 2212 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
 @!@!@ENDMSG 2189 @!@!@
 @!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 1 distinct state generated at 2023-04-27 13:16:04.
+Finished computing initial states: 1 distinct state generated at 2023-04-27 13:24:49.
 @!@!@ENDMSG 2190 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(2) at 2023-04-27 13:16:04: 3 states generated, 2 distinct states found, 0 states left on queue.
+Progress(2) at 2023-04-27 13:24:49: 3 states generated, 2 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2192:0 @!@!@
-Checking temporal properties for the complete state space with 2 total distinct states at (2023-04-27 13:16:04)
+Checking 2 branches of temporal properties for the complete state space with 4 total distinct states at (2023-04-27 13:24:49)
 @!@!@ENDMSG 2192 @!@!@
+@!@!@STARTMSG 2116:1 @!@!@
+Temporal properties were violated.
+
+@!@!@ENDMSG 2116 @!@!@
+@!@!@STARTMSG 2264:1 @!@!@
+The following behavior constitutes a counter-example:
+
+@!@!@ENDMSG 2264 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+1: <Initial predicate>
+/\ deliveries = <<>>
+/\ pc = "Lbl_1"
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+2: <Lbl_1 line 71, col 10 to line 74, col 32 of module optimisticLockTwoPhase>
+/\ deliveries = <<>>
+/\ pc = "Done"
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2218:4 @!@!@
+3: Stuttering
+@!@!@ENDMSG 2218 @!@!@
 @!@!@STARTMSG 2267:0 @!@!@
-Finished checking temporal properties in 00s at 2023-04-27 13:16:04
+Finished checking temporal properties in 00s at 2023-04-27 13:24:49
 @!@!@ENDMSG 2267 @!@!@
-@!@!@STARTMSG 2193:0 @!@!@
-Model checking completed. No error has been found.
-  Estimates of the probability that TLC did not check all reachable states
-  because two distinct states had the same fingerprint:
-  calculated (optimistic):  val = 1.1E-19
-@!@!@ENDMSG 2193 @!@!@
 @!@!@STARTMSG 2201:0 @!@!@
-The coverage statistics at 2023-04-27 13:16:04
+The coverage statistics at 2023-04-27 13:24:49
 @!@!@ENDMSG 2201 @!@!@
 @!@!@STARTMSG 2773:0 @!@!@
-<Init line 38, col 1 to line 38, col 4 of module optimisticLockTwoPhase>: 1:1
+<Init line 67, col 1 to line 67, col 4 of module optimisticLockTwoPhase>: 2:2
 @!@!@ENDMSG 2773 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 38, col 9 to line 38, col 23 of module optimisticLockTwoPhase: 1
+  line 68, col 9 to line 69, col 23 of module optimisticLockTwoPhase: 2
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<Lbl_1 line 40, col 1 to line 40, col 5 of module optimisticLockTwoPhase>: 1:1
+<Lbl_1 line 71, col 1 to line 71, col 5 of module optimisticLockTwoPhase>: 1:2
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 40, col 13 to line 40, col 24 of module optimisticLockTwoPhase: 3
+  line 71, col 13 to line 71, col 24 of module optimisticLockTwoPhase: 5
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 40, col 13 to line 40, col 14 of module optimisticLockTwoPhase: 2
+  |line 71, col 13 to line 71, col 14 of module optimisticLockTwoPhase: 3
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 41, col 13 to line 41, col 16 of module optimisticLockTwoPhase: 1
+  line 72, col 13 to line 72, col 16 of module optimisticLockTwoPhase: 2
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 42, col 13 to line 42, col 24 of module optimisticLockTwoPhase: 1
+  line 73, col 13 to line 73, col 24 of module optimisticLockTwoPhase: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 74, col 13 to line 74, col 32 of module optimisticLockTwoPhase: 2
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<Terminating line 45, col 1 to line 45, col 11 of module optimisticLockTwoPhase>: 0:1
+<Terminating line 77, col 1 to line 77, col 11 of module optimisticLockTwoPhase>: 0:1
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 45, col 16 to line 45, col 26 of module optimisticLockTwoPhase: 3
+  line 77, col 16 to line 77, col 26 of module optimisticLockTwoPhase: 3
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 45, col 16 to line 45, col 17 of module optimisticLockTwoPhase: 2
+  |line 77, col 16 to line 77, col 17 of module optimisticLockTwoPhase: 2
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 45, col 31 to line 45, col 44 of module optimisticLockTwoPhase: 1
+  line 77, col 31 to line 77, col 44 of module optimisticLockTwoPhase: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2202:0 @!@!@
 End of statistics.
 @!@!@ENDMSG 2202 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(2) at 2023-04-27 13:16:04: 3 states generated (256 s/min), 2 distinct states found (170 ds/min), 0 states left on queue.
+Progress(2) at 2023-04-27 13:24:49: 3 states generated (259 s/min), 2 distinct states found (172 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
 3 states generated, 2 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2199 @!@!@
-@!@!@STARTMSG 2194:0 @!@!@
-The depth of the complete state graph search is 2.
-@!@!@ENDMSG 2194 @!@!@
-@!@!@STARTMSG 2268:0 @!@!@
-The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 1 and the 95th percentile is 1).
-@!@!@ENDMSG 2268 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 707ms at (2023-04-27 13:16:04)
+Finished in 698ms at (2023-04-27 13:24:49)
 @!@!@ENDMSG 2186 @!@!@
