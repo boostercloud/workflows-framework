@@ -47,29 +47,37 @@ variables
   deliveries = <<>>;
   
 define
-ThereIsADeliveryEventually ==
+ConfirmedDeliveries == SelectSeq(deliveries,LAMBDA d: d.confirmed)
+
+AllOrdersDeliveredOnce ==
   <>[]
-    /\ deliveries /= <<>>
-    /\ \A d \in deliveries: d.confirmed
+    /\ Len(orders) = Len(ConfirmedDeliveries)
+    /\ \A oIdx \in DOMAIN orders:
+       \E dIdx \in DOMAIN ConfirmedDeliveries:
+       orders[oIdx].id = deliveries[dIdx].id
 end define;
 begin
 skip;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "dfb0921" /\ chksum(tla) = "30196560")
+\* BEGIN TRANSLATION (chksum(pcal) = "25135d5d" /\ chksum(tla) = "8d4cdf19")
 VARIABLES orders, deliveries, pc
 
 (* define statement *)
-ThereIsADeliveryEventually ==
+ConfirmedDeliveries == SelectSeq(deliveries,LAMBDA d: d.confirmed)
+
+AllOrdersDeliveredOnce ==
   <>[]
-    /\ deliveries /= <<>>
-    /\ \A d \in deliveries: d.confirmed
+    /\ Len(orders) = Len(ConfirmedDeliveries)
+    /\ \A oIdx \in DOMAIN orders:
+       \E dIdx \in DOMAIN ConfirmedDeliveries:
+       orders[oIdx].id = deliveries[dIdx].id
 
 
 vars == << orders, deliveries, pc >>
 
 Init == (* Global variables *)
         /\ orders = [ o \in 1..OrderCount |-> [ id |-> o, processed |-> FALSE ] ]
-        /\ deliveries = <<>>
+        /\ deliveries = [ o \in 1..(OrderCount + 1) |-> [ id |-> o, confirmed |-> TRUE ] ]
         /\ pc = "Lbl_1"
 
 Lbl_1 == /\ pc = "Lbl_1"
