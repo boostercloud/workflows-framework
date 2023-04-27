@@ -58,14 +58,17 @@ AllOrdersDelivered ==
 
 AllOrdersDeliveredOnce ==
   \* Play with the forever bit of it.
-  <>[] AllOrdersDelivered
+  <>[]AllOrdersDelivered
 
 NoDoubleBookings ==
   \A dIdx \in DOMAIN ConfirmedDeliveries:
   ~\E oDI \in (DOMAIN ConfirmedDeliveries) \ {dIdx}:
   ConfirmedDeliveries[dIdx].id = ConfirmedDeliveries[oDI].id
+  
+Handlers == {"handler1","handler2"}
 end define;
-fair process main \in {"handler1","handler2"}
+
+fair process main \in Handlers
 variables 
   orderIndex = -1;
 begin
@@ -87,8 +90,8 @@ Loop:
           goto Break;
         else
           deliveries[deliveryIndex].confirmed := TRUE;
-        end if;    
-      end with;  
+        end if;  
+      end with;
     MarkOrderAsProcessed:
       orders[orderIndex].processed := TRUE;
     Break:
@@ -96,7 +99,7 @@ Loop:
   end while;
 end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "b1d196bf" /\ chksum(tla) = "87d920d")
+\* BEGIN TRANSLATION (chksum(pcal) = "641102ef" /\ chksum(tla) = "67a5ee78")
 VARIABLES orders, deliveries, pc
 
 (* define statement *)
@@ -111,24 +114,26 @@ AllOrdersDelivered ==
 
 AllOrdersDeliveredOnce ==
 
-  <>[] AllOrdersDelivered
+  <>[]AllOrdersDelivered
 
 NoDoubleBookings ==
   \A dIdx \in DOMAIN ConfirmedDeliveries:
   ~\E oDI \in (DOMAIN ConfirmedDeliveries) \ {dIdx}:
   ConfirmedDeliveries[dIdx].id = ConfirmedDeliveries[oDI].id
 
+Handlers == {"handler1","handler2"}
+
 VARIABLE orderIndex
 
 vars == << orders, deliveries, pc, orderIndex >>
 
-ProcSet == ({"handler1","handler2"})
+ProcSet == (Handlers)
 
 Init == (* Global variables *)
         /\ orders = [ o \in 1..OrderCount |-> [ id |-> o, processed |-> FALSE ] ]
         /\ deliveries = <<>>
         (* Process main *)
-        /\ orderIndex = [self \in {"handler1","handler2"} |-> -1]
+        /\ orderIndex = [self \in Handlers |-> -1]
         /\ pc = [self \in ProcSet |-> "Loop"]
 
 Loop(self) == /\ pc[self] = "Loop"
@@ -180,12 +185,12 @@ main(self) == Loop(self) \/ ChooseOrder(self) \/ CreateDelivery(self)
 Terminating == /\ \A self \in ProcSet: pc[self] = "Done"
                /\ UNCHANGED vars
 
-Next == (\E self \in {"handler1","handler2"}: main(self))
+Next == (\E self \in Handlers: main(self))
            \/ Terminating
 
 Spec == /\ Init /\ [][Next]_vars
         /\ WF_vars(Next)
-        /\ \A self \in {"handler1","handler2"} : WF_vars(main(self))
+        /\ \A self \in Handlers : WF_vars(main(self))
 
 Termination == <>(\A self \in ProcSet: pc[self] = "Done")
 
