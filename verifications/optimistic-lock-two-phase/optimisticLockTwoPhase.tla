@@ -64,13 +64,16 @@ NoDoubleBookings ==
   \A dIdx \in DOMAIN ConfirmedDeliveries:
   ~\E oDI \in (DOMAIN ConfirmedDeliveries) \ {dIdx}:
   ConfirmedDeliveries[dIdx].id = ConfirmedDeliveries[oDI].id
-  
-Handlers == {"handler1","handler2"}
 end define;
 
-fair process main \in Handlers
+macro MarkAsProcessed() begin
+  orders[orderIndex].processed := TRUE;
+end macro;
+
+fair process main \in {"handler1","handler2"}
 variables 
-  orderIndex = -1;
+  orderIndex = -1,
+  remainingErrors = [ Mark |-> 1 ];
 begin
 Loop:
   while \E oIdx \in DOMAIN orders: ~orders[oIdx].processed do
@@ -93,13 +96,19 @@ Loop:
         end if;  
       end with;
     MarkOrderAsProcessed:
-      orders[orderIndex].processed := TRUE;
+      if 0 < remainingErrors.Mark then
+        either MarkAsProcessed();
+        or remainingErrors.Mark := remainingErrors.Mark - 1;
+        end either;
+      else
+        MarkAsProcessed();
+      end if;
     Break:
       skip;
   end while;
 end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "641102ef" /\ chksum(tla) = "67a5ee78")
+\* BEGIN TRANSLATION (chksum(pcal) = "1f22b0ff" /\ chksum(tla) = "d6707ccd")
 VARIABLES orders, deliveries, pc
 
 (* define statement *)
@@ -121,26 +130,25 @@ NoDoubleBookings ==
   ~\E oDI \in (DOMAIN ConfirmedDeliveries) \ {dIdx}:
   ConfirmedDeliveries[dIdx].id = ConfirmedDeliveries[oDI].id
 
-Handlers == {"handler1","handler2"}
+VARIABLES orderIndex, remainingErrors
 
-VARIABLE orderIndex
+vars == << orders, deliveries, pc, orderIndex, remainingErrors >>
 
-vars == << orders, deliveries, pc, orderIndex >>
-
-ProcSet == (Handlers)
+ProcSet == ({"handler1","handler2"})
 
 Init == (* Global variables *)
         /\ orders = [ o \in 1..OrderCount |-> [ id |-> o, processed |-> FALSE ] ]
         /\ deliveries = <<>>
         (* Process main *)
-        /\ orderIndex = [self \in Handlers |-> -1]
+        /\ orderIndex = [self \in {"handler1","handler2"} |-> -1]
+        /\ remainingErrors = [self \in {"handler1","handler2"} |-> [ Mark |-> 1 ]]
         /\ pc = [self \in ProcSet |-> "Loop"]
 
 Loop(self) == /\ pc[self] = "Loop"
               /\ IF \E oIdx \in DOMAIN orders: ~orders[oIdx].processed
                     THEN /\ pc' = [pc EXCEPT ![self] = "ChooseOrder"]
                     ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
-              /\ UNCHANGED << orders, deliveries, orderIndex >>
+              /\ UNCHANGED << orders, deliveries, orderIndex, remainingErrors >>
 
 ChooseOrder(self) == /\ pc[self] = "ChooseOrder"
                      /\ IF ~\E oIdx \in DOMAIN orders: ~orders[oIdx].processed
@@ -148,7 +156,7 @@ ChooseOrder(self) == /\ pc[self] = "ChooseOrder"
                                 /\ UNCHANGED orderIndex
                            ELSE /\ orderIndex' = [orderIndex EXCEPT ![self] = CHOOSE oIdx \in DOMAIN orders: ~orders[oIdx].processed]
                                 /\ pc' = [pc EXCEPT ![self] = "CreateDelivery"]
-                     /\ UNCHANGED << orders, deliveries >>
+                     /\ UNCHANGED << orders, deliveries, remainingErrors >>
 
 CreateDelivery(self) == /\ pc[self] = "CreateDelivery"
                         /\ IF (~\E di \in DOMAIN deliveries: deliveries[di].source = self /\ deliveries[di].id = orders[orderIndex[self]].id)
@@ -156,7 +164,7 @@ CreateDelivery(self) == /\ pc[self] = "CreateDelivery"
                               ELSE /\ TRUE
                                    /\ UNCHANGED deliveries
                         /\ pc' = [pc EXCEPT ![self] = "TryConfirmDelivery"]
-                        /\ UNCHANGED << orders, orderIndex >>
+                        /\ UNCHANGED << orders, orderIndex, remainingErrors >>
 
 TryConfirmDelivery(self) == /\ pc[self] = "TryConfirmDelivery"
                             /\ LET deliveryIndex == CHOOSE di \in DOMAIN deliveries: deliveries[di].id = orders[orderIndex[self]].id /\ deliveries[di].source = self IN
@@ -165,17 +173,24 @@ TryConfirmDelivery(self) == /\ pc[self] = "TryConfirmDelivery"
                                          /\ UNCHANGED deliveries
                                     ELSE /\ deliveries' = [deliveries EXCEPT ![deliveryIndex].confirmed = TRUE]
                                          /\ pc' = [pc EXCEPT ![self] = "MarkOrderAsProcessed"]
-                            /\ UNCHANGED << orders, orderIndex >>
+                            /\ UNCHANGED << orders, orderIndex, 
+                                            remainingErrors >>
 
 MarkOrderAsProcessed(self) == /\ pc[self] = "MarkOrderAsProcessed"
-                              /\ orders' = [orders EXCEPT ![orderIndex[self]].processed = TRUE]
+                              /\ IF 0 < remainingErrors[self].Mark
+                                    THEN /\ \/ /\ orders' = [orders EXCEPT ![orderIndex[self]].processed = TRUE]
+                                               /\ UNCHANGED remainingErrors
+                                            \/ /\ remainingErrors' = [remainingErrors EXCEPT ![self].Mark = remainingErrors[self].Mark - 1]
+                                               /\ UNCHANGED orders
+                                    ELSE /\ orders' = [orders EXCEPT ![orderIndex[self]].processed = TRUE]
+                                         /\ UNCHANGED remainingErrors
                               /\ pc' = [pc EXCEPT ![self] = "Break"]
                               /\ UNCHANGED << deliveries, orderIndex >>
 
 Break(self) == /\ pc[self] = "Break"
                /\ TRUE
                /\ pc' = [pc EXCEPT ![self] = "Loop"]
-               /\ UNCHANGED << orders, deliveries, orderIndex >>
+               /\ UNCHANGED << orders, deliveries, orderIndex, remainingErrors >>
 
 main(self) == Loop(self) \/ ChooseOrder(self) \/ CreateDelivery(self)
                  \/ TryConfirmDelivery(self) \/ MarkOrderAsProcessed(self)
@@ -185,12 +200,12 @@ main(self) == Loop(self) \/ ChooseOrder(self) \/ CreateDelivery(self)
 Terminating == /\ \A self \in ProcSet: pc[self] = "Done"
                /\ UNCHANGED vars
 
-Next == (\E self \in Handlers: main(self))
+Next == (\E self \in {"handler1","handler2"}: main(self))
            \/ Terminating
 
 Spec == /\ Init /\ [][Next]_vars
         /\ WF_vars(Next)
-        /\ \A self \in Handlers : WF_vars(main(self))
+        /\ \A self \in {"handler1","handler2"} : WF_vars(main(self))
 
 Termination == <>(\A self \in ProcSet: pc[self] = "Done")
 
