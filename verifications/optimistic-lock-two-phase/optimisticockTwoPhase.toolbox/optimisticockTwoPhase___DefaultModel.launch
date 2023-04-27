@@ -11,8 +11,8 @@
     <intAttribute key="distributedNodesCount" value="1"/>
     <stringAttribute key="distributedTLC" value="off"/>
     <stringAttribute key="distributedTLCVMArgs" value=""/>
-    <intAttribute key="fpBits" value="1"/>
-    <intAttribute key="fpIndex" value="20"/>
+    <intAttribute key="fpBits" value="2"/>
+    <intAttribute key="fpIndex" value="124"/>
     <booleanAttribute key="fpIndexRandom" value="true"/>
     <intAttribute key="maxHeapSize" value="40"/>
     <intAttribute key="maxSetSize" value="1000000"/>
@@ -34,7 +34,7 @@
     <intAttribute key="modelEditorOpenTabs" value="12"/>
     <stringAttribute key="modelExpressionEval" value=""/>
     <listAttribute key="modelParameterConstants">
-        <listEntry value="OrderCount;;2;0;0"/>
+        <listEntry value="OrderCount;;3;0;0"/>
     </listAttribute>
     <intAttribute key="modelVersion" value="20191005"/>
     <intAttribute key="numberOfWorkers" value="16"/>
