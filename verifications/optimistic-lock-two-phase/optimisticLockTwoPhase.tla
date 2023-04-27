@@ -81,7 +81,7 @@ end macro;
 fair process main \in {"handler1","handler2"}
 variables 
   orderIndex = -1,
-  remainingErrors = [ Mark |-> 1, Confirm |-> 1 ];
+  remainingErrors = [ Mark |-> 2, Confirm |-> 2 ];
 begin
 Loop:
   while \E oIdx \in DOMAIN orders: ~orders[oIdx].processed do
@@ -114,7 +114,7 @@ Loop:
   end while;
 end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "addacb4e" /\ chksum(tla) = "26738df7")
+\* BEGIN TRANSLATION (chksum(pcal) = "419dde5d" /\ chksum(tla) = "33ee3c57")
 VARIABLES orders, deliveries, pc
 
 (* define statement *)
@@ -145,7 +145,7 @@ Init == (* Global variables *)
         /\ deliveries = <<>>
         (* Process main *)
         /\ orderIndex = [self \in {"handler1","handler2"} |-> -1]
-        /\ remainingErrors = [self \in {"handler1","handler2"} |-> [ Mark |-> 1, Confirm |-> 1 ]]
+        /\ remainingErrors = [self \in {"handler1","handler2"} |-> [ Mark |-> 2, Confirm |-> 2 ]]
         /\ pc = [self \in ProcSet |-> "Loop"]
 
 Loop(self) == /\ pc[self] = "Loop"
