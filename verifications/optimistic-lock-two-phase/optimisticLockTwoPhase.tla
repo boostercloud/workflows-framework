@@ -56,15 +56,23 @@ AllOrdersDelivered ==
        \E dIdx \in DOMAIN cd:
        orders[oIdx].id = cd[dIdx].id
 
-AllOrdersDeliveredOnce ==
-  \* Play with the forever bit of it.
-  <>[]AllOrdersDelivered
+AllOrdersDeliveredOnce == <>[]AllOrdersDelivered
 
 NoDoubleBookings ==
   \A dIdx \in DOMAIN ConfirmedDeliveries:
   ~\E oDI \in (DOMAIN ConfirmedDeliveries) \ {dIdx}:
   ConfirmedDeliveries[dIdx].id = ConfirmedDeliveries[oDI].id
 end define;
+
+macro TryConfirm() begin
+  with deliveryIndex = CHOOSE di \in DOMAIN deliveries: deliveries[di].id = orders[orderIndex].id /\ deliveries[di].source = self do
+    if (\E di \in DOMAIN deliveries: di < deliveryIndex /\ deliveries[di].id = orders[orderIndex].id) then
+      goto Break;
+    else
+      deliveries[deliveryIndex].confirmed := TRUE;
+    end if;  
+  end with;
+end macro;
 
 macro MarkAsProcessed() begin
   orders[orderIndex].processed := TRUE;
@@ -73,7 +81,7 @@ end macro;
 fair process main \in {"handler1","handler2"}
 variables 
   orderIndex = -1,
-  remainingErrors = [ Mark |-> 1 ];
+  remainingErrors = [ Mark |-> 1, Confirm |-> 1 ];
 begin
 Loop:
   while \E oIdx \in DOMAIN orders: ~orders[oIdx].processed do
@@ -88,27 +96,25 @@ Loop:
         deliveries := Append(deliveries, [ id |-> orders[orderIndex].id, confirmed |-> FALSE, source |-> self ]);
       end if;
     TryConfirmDelivery:
-      with deliveryIndex = CHOOSE di \in DOMAIN deliveries: deliveries[di].id = orders[orderIndex].id /\ deliveries[di].source = self do
-        if (\E di \in DOMAIN deliveries: di < deliveryIndex /\ deliveries[di].id = orders[orderIndex].id) then
-          goto Break;
-        else
-          deliveries[deliveryIndex].confirmed := TRUE;
-        end if;  
-      end with;
+      if 0 < remainingErrors.Confirm then
+        either TryConfirm();
+        or remainingErrors.Confirm := remainingErrors.Confirm - 1; goto Break;
+        end either;
+      else TryConfirm();
+      end if;
     MarkOrderAsProcessed:
       if 0 < remainingErrors.Mark then
         either MarkAsProcessed();
         or remainingErrors.Mark := remainingErrors.Mark - 1;
         end either;
-      else
-        MarkAsProcessed();
+      else MarkAsProcessed();
       end if;
     Break:
       skip;
   end while;
 end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "1f22b0ff" /\ chksum(tla) = "d6707ccd")
+\* BEGIN TRANSLATION (chksum(pcal) = "addacb4e" /\ chksum(tla) = "26738df7")
 VARIABLES orders, deliveries, pc
 
 (* define statement *)
@@ -121,9 +127,7 @@ AllOrdersDelivered ==
        \E dIdx \in DOMAIN cd:
        orders[oIdx].id = cd[dIdx].id
 
-AllOrdersDeliveredOnce ==
-
-  <>[]AllOrdersDelivered
+AllOrdersDeliveredOnce == <>[]AllOrdersDelivered
 
 NoDoubleBookings ==
   \A dIdx \in DOMAIN ConfirmedDeliveries:
@@ -141,7 +145,7 @@ Init == (* Global variables *)
         /\ deliveries = <<>>
         (* Process main *)
         /\ orderIndex = [self \in {"handler1","handler2"} |-> -1]
-        /\ remainingErrors = [self \in {"handler1","handler2"} |-> [ Mark |-> 1 ]]
+        /\ remainingErrors = [self \in {"handler1","handler2"} |-> [ Mark |-> 1, Confirm |-> 1 ]]
         /\ pc = [self \in ProcSet |-> "Loop"]
 
 Loop(self) == /\ pc[self] = "Loop"
@@ -167,14 +171,25 @@ CreateDelivery(self) == /\ pc[self] = "CreateDelivery"
                         /\ UNCHANGED << orders, orderIndex, remainingErrors >>
 
 TryConfirmDelivery(self) == /\ pc[self] = "TryConfirmDelivery"
-                            /\ LET deliveryIndex == CHOOSE di \in DOMAIN deliveries: deliveries[di].id = orders[orderIndex[self]].id /\ deliveries[di].source = self IN
-                                 IF (\E di \in DOMAIN deliveries: di < deliveryIndex /\ deliveries[di].id = orders[orderIndex[self]].id)
-                                    THEN /\ pc' = [pc EXCEPT ![self] = "Break"]
-                                         /\ UNCHANGED deliveries
-                                    ELSE /\ deliveries' = [deliveries EXCEPT ![deliveryIndex].confirmed = TRUE]
-                                         /\ pc' = [pc EXCEPT ![self] = "MarkOrderAsProcessed"]
-                            /\ UNCHANGED << orders, orderIndex, 
-                                            remainingErrors >>
+                            /\ IF 0 < remainingErrors[self].Confirm
+                                  THEN /\ \/ /\ LET deliveryIndex == CHOOSE di \in DOMAIN deliveries: deliveries[di].id = orders[orderIndex[self]].id /\ deliveries[di].source = self IN
+                                                  IF (\E di \in DOMAIN deliveries: di < deliveryIndex /\ deliveries[di].id = orders[orderIndex[self]].id)
+                                                     THEN /\ pc' = [pc EXCEPT ![self] = "Break"]
+                                                          /\ UNCHANGED deliveries
+                                                     ELSE /\ deliveries' = [deliveries EXCEPT ![deliveryIndex].confirmed = TRUE]
+                                                          /\ pc' = [pc EXCEPT ![self] = "MarkOrderAsProcessed"]
+                                             /\ UNCHANGED remainingErrors
+                                          \/ /\ remainingErrors' = [remainingErrors EXCEPT ![self].Confirm = remainingErrors[self].Confirm - 1]
+                                             /\ pc' = [pc EXCEPT ![self] = "Break"]
+                                             /\ UNCHANGED deliveries
+                                  ELSE /\ LET deliveryIndex == CHOOSE di \in DOMAIN deliveries: deliveries[di].id = orders[orderIndex[self]].id /\ deliveries[di].source = self IN
+                                            IF (\E di \in DOMAIN deliveries: di < deliveryIndex /\ deliveries[di].id = orders[orderIndex[self]].id)
+                                               THEN /\ pc' = [pc EXCEPT ![self] = "Break"]
+                                                    /\ UNCHANGED deliveries
+                                               ELSE /\ deliveries' = [deliveries EXCEPT ![deliveryIndex].confirmed = TRUE]
+                                                    /\ pc' = [pc EXCEPT ![self] = "MarkOrderAsProcessed"]
+                                       /\ UNCHANGED remainingErrors
+                            /\ UNCHANGED << orders, orderIndex >>
 
 MarkOrderAsProcessed(self) == /\ pc[self] = "MarkOrderAsProcessed"
                               /\ IF 0 < remainingErrors[self].Mark
