@@ -2,241 +2,105 @@
 TLC2 Version 2.16 of 31 December 2020 (rev: cdddf55)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 80 and seed 4386918649570110205 with 10 workers on 20 cores with 2405MB heap and 5408MB offheap memory [pid: 18304] (Windows 10 10.0 amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 75 and seed -4959030855888017351 with 10 workers on 20 cores with 2405MB heap and 5408MB offheap memory [pid: 28660] (Windows 10 10.0 amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
 @!@!@ENDMSG 2220 @!@!@
 Parsing file C:\repos\workflows-framework\verifications\optimistic-lock-two-phase\optimisticockTwoPhase.toolbox\one_actor\MC.tla
 Parsing file C:\repos\workflows-framework\verifications\optimistic-lock-two-phase\optimisticockTwoPhase.toolbox\one_actor\optimisticLockTwoPhase.tla
+Labels added.
 Parsing file C:\Users\yeray\toolbox\plugins\org.lamport.tlatools_1.0.0.202012311918\tla2sany\StandardModules\TLC.tla
-Parsing file C:\Users\yeray\toolbox\plugins\org.lamport.tlatools_1.0.0.202012311918\tla2sany\StandardModules\Integers.tla
-Parsing file C:\Users\yeray\toolbox\plugins\org.lamport.tlatools_1.0.0.202012311918\tla2sany\StandardModules\Sequences.tla
 Parsing file C:\Users\yeray\toolbox\plugins\org.lamport.tlatools_1.0.0.202012311918\tla2sany\StandardModules\Naturals.tla
+Parsing file C:\Users\yeray\toolbox\plugins\org.lamport.tlatools_1.0.0.202012311918\tla2sany\StandardModules\Sequences.tla
 Parsing file C:\Users\yeray\toolbox\plugins\org.lamport.tlatools_1.0.0.202012311918\tla2sany\StandardModules\FiniteSets.tla
+Semantic processing of module optimisticLockTwoPhase
 Semantic processing of module Naturals
 Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
-Semantic processing of module Integers
-Semantic processing of module optimisticLockTwoPhase
 Semantic processing of module MC
 @!@!@STARTMSG 2219:0 @!@!@
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2023-04-26 13:33:47)
+Starting... (2023-04-27 13:16:03)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2212:0 @!@!@
-Implied-temporal checking--satisfiability problem has 2 branches.
+Implied-temporal checking--satisfiability problem has 1 branches.
 @!@!@ENDMSG 2212 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
 @!@!@ENDMSG 2189 @!@!@
 @!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 1 distinct state generated at 2023-04-26 13:33:47.
+Finished computing initial states: 1 distinct state generated at 2023-04-27 13:16:04.
 @!@!@ENDMSG 2190 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(14) at 2023-04-26 13:33:47: 15 states generated, 14 distinct states found, 0 states left on queue.
+Progress(2) at 2023-04-27 13:16:04: 3 states generated, 2 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2192:0 @!@!@
-Checking 2 branches of temporal properties for the complete state space with 28 total distinct states at (2023-04-26 13:33:47)
+Checking temporal properties for the complete state space with 2 total distinct states at (2023-04-27 13:16:04)
 @!@!@ENDMSG 2192 @!@!@
 @!@!@STARTMSG 2267:0 @!@!@
-Finished checking temporal properties in 00s at 2023-04-26 13:33:47
+Finished checking temporal properties in 00s at 2023-04-27 13:16:04
 @!@!@ENDMSG 2267 @!@!@
 @!@!@STARTMSG 2193:0 @!@!@
 Model checking completed. No error has been found.
   Estimates of the probability that TLC did not check all reachable states
   because two distinct states had the same fingerprint:
-  calculated (optimistic):  val = 7.6E-19
+  calculated (optimistic):  val = 1.1E-19
 @!@!@ENDMSG 2193 @!@!@
 @!@!@STARTMSG 2201:0 @!@!@
-The coverage statistics at 2023-04-26 13:33:47
+The coverage statistics at 2023-04-27 13:16:04
 @!@!@ENDMSG 2201 @!@!@
 @!@!@STARTMSG 2773:0 @!@!@
-<Init line 82, col 1 to line 82, col 4 of module optimisticLockTwoPhase>: 1:1
+<Init line 38, col 1 to line 38, col 4 of module optimisticLockTwoPhase>: 1:1
 @!@!@ENDMSG 2773 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 83, col 9 to line 89, col 45 of module optimisticLockTwoPhase: 1
+  line 38, col 9 to line 38, col 23 of module optimisticLockTwoPhase: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<Loop line 91, col 1 to line 91, col 10 of module optimisticLockTwoPhase>: 3:3
+<Lbl_1 line 40, col 1 to line 40, col 5 of module optimisticLockTwoPhase>: 1:1
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 91, col 18 to line 91, col 34 of module optimisticLockTwoPhase: 20
+  line 40, col 13 to line 40, col 24 of module optimisticLockTwoPhase: 3
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 91, col 18 to line 91, col 25 of module optimisticLockTwoPhase: 17
+  |line 40, col 13 to line 40, col 14 of module optimisticLockTwoPhase: 2
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 92, col 21 to line 92, col 41 of module optimisticLockTwoPhase: 3
+  line 41, col 13 to line 41, col 16 of module optimisticLockTwoPhase: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 74, col 4 to line 74, col 39 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  ||line 74, col 21 to line 74, col 39 of module optimisticLockTwoPhase: 4
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  ||line 74, col 13 to line 74, col 18 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 93, col 26 to line 93, col 67 of module optimisticLockTwoPhase: 2
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 94, col 26 to line 94, col 62 of module optimisticLockTwoPhase: 1
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 95, col 18 to line 95, col 73 of module optimisticLockTwoPhase: 3
+  line 42, col 13 to line 42, col 24 of module optimisticLockTwoPhase: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<PickOrder line 97, col 1 to line 97, col 15 of module optimisticLockTwoPhase>: 2:3
+<Terminating line 45, col 1 to line 45, col 11 of module optimisticLockTwoPhase>: 0:1
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 97, col 23 to line 97, col 44 of module optimisticLockTwoPhase: 20
+  line 45, col 16 to line 45, col 26 of module optimisticLockTwoPhase: 3
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 97, col 23 to line 97, col 30 of module optimisticLockTwoPhase: 17
+  |line 45, col 16 to line 45, col 17 of module optimisticLockTwoPhase: 2
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 98, col 23 to line 98, col 105 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 99, col 23 to line 99, col 66 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 100, col 23 to line 100, col 69 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2772:0 @!@!@
-<CreateDelivery line 102, col 1 to line 102, col 20 of module optimisticLockTwoPhase>: 2:3
-@!@!@ENDMSG 2772 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 102, col 28 to line 102, col 54 of module optimisticLockTwoPhase: 20
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  |line 102, col 28 to line 102, col 35 of module optimisticLockTwoPhase: 17
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 103, col 28 to line 105, col 108 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 106, col 28 to line 106, col 72 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 107, col 28 to line 107, col 71 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2772:0 @!@!@
-<ConfirmDelivery line 109, col 1 to line 109, col 21 of module optimisticLockTwoPhase>: 2:3
-@!@!@ENDMSG 2772 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 109, col 29 to line 109, col 56 of module optimisticLockTwoPhase: 20
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  |line 109, col 29 to line 109, col 36 of module optimisticLockTwoPhase: 17
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 110, col 29 to line 110, col 131 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  |line 110, col 37 to line 110, col 131 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  ||line 110, col 38 to line 110, col 41 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  ||line 110, col 50 to line 110, col 130 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  ||line 110, col 60 to line 110, col 130 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  |||line 110, col 93 to line 110, col 130 of module optimisticLockTwoPhase: 4
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  |||line 110, col 74 to line 110, col 90 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 111, col 29 to line 111, col 93 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 112, col 29 to line 112, col 80 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 113, col 29 to line 113, col 66 of module optimisticLockTwoPhase: 3
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2772:0 @!@!@
-<ThirdPartyReducesStock line 115, col 1 to line 115, col 28 of module optimisticLockTwoPhase>: 2:2
-@!@!@ENDMSG 2772 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 115, col 36 to line 115, col 70 of module optimisticLockTwoPhase: 19
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  |line 115, col 36 to line 115, col 43 of module optimisticLockTwoPhase: 17
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 116, col 36 to line 116, col 72 of module optimisticLockTwoPhase: 2
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 117, col 36 to line 117, col 80 of module optimisticLockTwoPhase: 2
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 118, col 36 to line 119, col 58 of module optimisticLockTwoPhase: 2
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2772:0 @!@!@
-<MarkAsProcessed line 121, col 1 to line 121, col 21 of module optimisticLockTwoPhase>: 2:2
-@!@!@ENDMSG 2772 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 121, col 29 to line 121, col 56 of module optimisticLockTwoPhase: 19
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  |line 121, col 29 to line 121, col 36 of module optimisticLockTwoPhase: 17
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 122, col 29 to line 124, col 88 of module optimisticLockTwoPhase: 2
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 125, col 29 to line 125, col 62 of module optimisticLockTwoPhase: 2
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 126, col 29 to line 126, col 76 of module optimisticLockTwoPhase: 2
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2772:0 @!@!@
-<Terminating line 134, col 1 to line 134, col 11 of module optimisticLockTwoPhase>: 0:1
-@!@!@ENDMSG 2772 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 134, col 40 to line 134, col 56 of module optimisticLockTwoPhase: 18
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  |line 134, col 40 to line 134, col 47 of module optimisticLockTwoPhase: 17
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 134, col 31 to line 134, col 37 of module optimisticLockTwoPhase: 17
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 135, col 19 to line 135, col 32 of module optimisticLockTwoPhase: 1
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2774:0 @!@!@
-<NeverInTheRed line 71, col 1 to line 71, col 13 of module optimisticLockTwoPhase>
-@!@!@ENDMSG 2774 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 71, col 18 to line 71, col 27 of module optimisticLockTwoPhase: 14
+  line 45, col 31 to line 45, col 44 of module optimisticLockTwoPhase: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2202:0 @!@!@
 End of statistics.
 @!@!@ENDMSG 2202 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(14) at 2023-04-26 13:33:47: 15 states generated (1,267 s/min), 14 distinct states found (1,183 ds/min), 0 states left on queue.
+Progress(2) at 2023-04-27 13:16:04: 3 states generated (256 s/min), 2 distinct states found (170 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
-15 states generated, 14 distinct states found, 0 states left on queue.
+3 states generated, 2 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2199 @!@!@
 @!@!@STARTMSG 2194:0 @!@!@
-The depth of the complete state graph search is 14.
+The depth of the complete state graph search is 2.
 @!@!@ENDMSG 2194 @!@!@
 @!@!@STARTMSG 2268:0 @!@!@
 The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 1 and the 95th percentile is 1).
 @!@!@ENDMSG 2268 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 721ms at (2023-04-26 13:33:47)
+Finished in 707ms at (2023-04-27 13:16:04)
 @!@!@ENDMSG 2186 @!@!@
