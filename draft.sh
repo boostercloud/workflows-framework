@@ -22,9 +22,6 @@ function generate() {
     -V linkcolor=blue \
     -V toccolor=gray \
     -F mermaid-filter
-    #--pdf-engine=xelatex \
-    #--variable mainfont="DejaVu Serif" \
-    #--variable sansfont="DejaVu Serif"
 }
 
 generate "pdf"
