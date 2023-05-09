@@ -38,22 +38,43 @@ stateDiagram-v2
 	state "Query Endpoint" as qep
 	state "Command Endpoint" as cep
   state "Outcome" as oc
+  state "Third party" as tp
 
 	[*] --> td
 	td --> rm: Via function 3
-  [*] --> qep
+  tp --> qep
   qep --> rm: Defined in function 2.4
-  [*] --> cep: With the contract \n access control from 1.1 and 1.2
+  tp --> cep: With the contract \n access control from 1.1 and 1.2
   rm --> cep: Feeds data for function 2.5
   cep --> oc: Based on decision made in 2.5
 
 	classDef event fill:#de7316
 	classDef readModel fill:#34eb86
 	classDef command fill:#34abeb
+	classDef thirdParty fill:#d1ce19
 
 	class td, oc event
 	class rm, qep readModel
 	class cep command
+  class tp thirdParty
+```
+**Legend:**
+```mermaid
+stateDiagram-v2
+	state "Event" as eventBox
+	state "Read Model" as emBox
+	state "Command" as cmdBox
+	state "Third Party" as tpBox
+
+	classDef event fill:#de7316
+	classDef readModel fill:#34eb86
+	classDef command fill:#34abeb
+	classDef thirdParty fill:#d1ce19
+
+	class eventBox event
+	class emBox readModel
+	class cmdBox command
+	class tpBox thirdParty
 ```
 
 # State
@@ -82,6 +103,13 @@ This task is an integration with a third party that provides a mechanism to uniq
 
 1. A function that receives the event and the `Task identifier`, attempts the action and with the result of it, makes a decision.
 
+**The algorithm:**
+```mermaid
+flowchart TD
+	A[Start] -->|With idempotency key| B[Make request]
+  B --> C[Decide outcome]
+```
+
 ## Optimistic lock enabled
 
 This task is an integration with a third party that allows to perform an action in two steps, and determine whether the first step of the task is already underway by another process by querying for the first step based on some form of metadata that includes the `Task identifier`. The definition consists on:
@@ -91,6 +119,32 @@ This task is an integration with a third party that allows to perform an action 
 3. A function that receives the event and the `Task identifier`, attempts the second step, and based 
 4. An optional function that receives the event and the `Task identifier`, and undoes any incomplete attempt of the task.
 
+The Task will:
+1. Attempt the first step.
+2. Verify that the first step just made is the oldest one not expired for this identifier.
+    1. If it isn't, it tries to delete the step and exits without an outcome.
+3. Verify that there isn't a completed second step for this identifier.
+    1. If there is, it tries to delete the step and exits without an outcome.
+4. Attempt the second step.
+5. Generate an outcome with the result of the second step.
+
+**The algorithm:**
+```mermaid
+flowchart TD
+  A[Start] --> B[First step]
+  B --> C{Own first step\noldest not expired?}
+  C -->|Yes| D{Completed 2nd step?}
+  C -->|No| E[Remove own\nfirst step]
+  E --> F["Abort(no outcome)"]
+  D -->|Yes| I{Past expiration?}
+  D -->|No| G[Second step]
+  G --> H[Outcome]
+  I -->|Yes| K[Remove own\nfirst step]
+  I -->|No| J[Remove own\nfirst step]
+  K -->|Use existing result| H
+  J --> F
+```
+
 ## Pessimistic lock enabled
 
 This task is an integration with a third party that allows to query if an attempt on the action has been performed before based on some form of metadata that includes the `Task identifier`. If it has, it has to be possible to get the outcome of that previous attempt. The definition consists on:
@@ -98,6 +152,27 @@ This task is an integration with a third party that allows to query if an attemp
 1. A function that receives the event and the `Task identifier`, attempts the task, and uses its outcome to make a decision.
 2. A function that receives the event and the `Task identifier`, and determines whether the action has been tried before. If it has, reads the outcome of the task and makes a decision.
 3. A property that delimits how long can the task take in an attempt, cancelling it after that time.
+
+The Task will:
+1. Write a lock for the `Task identifier`.
+2. Verify that the lock just made is the oldest one not expired for this identifier.
+    1. If it isn't, aborts without an outcome.
+3. Verify that there isn't a completed action in the service for this identifier.
+    1. If there is, it is guaranteed that the original process has expired, so emit an outcome with the result available.
+4. Attempt the action.
+5. Generate an outcome with the result.
+
+**The algorithm:**
+```mermaid
+flowchart TD
+  A[Start] --> B[Write lock]
+  B --> C{Own lock the\noldest not expired?}
+  C -->|Yes| D{Completed result?}
+  D -->|No| E[Execute]
+  C -->|No| F["Abort (no outcome)"]
+  E --> G[Outcome]
+  D -->|"Yes (use it)"| G
+```
 
 ## Black boxed
 
@@ -110,18 +185,27 @@ The definition of this task consists on:
 1. A function that receives the event and the `Task identifier`, attempts the task, and uses its outcome to make a decision.
 2. A function that receives the event, the `Task identifier`, and the time the previous attempt started and makes a decision.
 
-**Legend:**
+The Task will:
+1. Write a lock for the `Task identifier`.
+2. Verify that the lock just made is the oldest one.
+    1. If it isn't, verify that every previous lock is past expiration, and with a registered fault.
+        1. If they all meet both conditions, continue.
+        2. If there is at least one expired without a fault, emit an uncertainty outcome.
+        3. If there is at least one that is neither expired nor faulted, register a fault for this attempt and abort without an outcome.
+4. Attempt the action.
+    1. If there's a fault, register the fault.
+5. Generate an outcome with the result.
+
+**The algorithm:**
 ```mermaid
-stateDiagram-v2
-	state "Event" as eventBox
-	state "Read Model" as emBox
-	state "Command" as cmdBox
-
-	classDef event fill:#de7316
-	classDef readModel fill:#34eb86
-	classDef command fill:#34abeb
-
-	class eventBox event
-	class emBox readModel
-	class cmdBox command
+flowchart TD
+  A[Start] --> B[Write lock]
+  B --> C{Is own lock\nthe oldest?}
+  C -->|Yes| E[Execute]
+  E --> F[Outcome]
+  C -->|No| G{All the\nothers faulted?}
+  G -->|Yes| E
+  G -->|No| H{All non faulted\nare expired?}
+  H -->|Yes| I["Uncertainty outcome\n(compromise decision)"]
+  H -->|No| J["Register fault\nand abort"]
 ```

@@ -1,1 +1,5 @@
 {"rule":"EN_A_VS_AN","sentence":"^\\Qe.g. Many payment providers accept an \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q in their requests, so if we attempt a refund, and we generate a unique key per refund, we know we will never refund more than once.\\E$"}
+{"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QIf there isn't emit an uncertainty outcome.\\E$"}
+{"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QIf there's at least one non expired lock, emit an uncertainty outcome.\\E$"}
+{"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QIf there is at least one expired without a fault, emit an uncertainty outcome.\\E$"}
+{"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QIf there is at least one that is neither expired nor faulted, register a fault for this attempt and abort without an outcome.\\E$"}
