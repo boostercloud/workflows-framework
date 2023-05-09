@@ -1,0 +1,1 @@
+{"rule":"EN_A_VS_AN","sentence":"^\\Qe.g. Many payment providers accept an \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q in their requests, so if we attempt a refund, and we generate a unique key per refund, we know we will never refund more than once.\\E$"}

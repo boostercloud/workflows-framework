@@ -6,9 +6,9 @@
 
 The concept of a `Task` is, when it comes to its outcome not concerned about which outcome means a success business wise, but about whether the action could be executed and a decision was made out of the outcome. This means that any possible result just represents the next possible state.
 
-## Undo “A” is just do “B” when “A” has been done
+## Undo "A" is just do "B" when "A" has been done
 
-While the `Task` is not concerned about business failure, the `Workflow` itself is, there are actions that might need to be undone if subsequent `Tasks` fail, this is not considered a special action in this framework, but just an action to perform after a certain precondition has been met.
+While the `Task` is not concerned about business failure, the `Workflow` itself is, there are actions that might need to be undone if subsequent `Tasks` fail, this is not considered a special action in this framework, but just an action to perform after a certain precondition has been met. 
 
 ## All parties are third parties
 
@@ -26,8 +26,15 @@ As complex as the decisions for faults in a `Task` might seem, there are only th
 2. Desist in the attempt, that is, deciding not to retry, and in the fault mapping function, continue the workflow towards a different `State`.
 3. React to the fault, that is, deciding not to retry, and in the fault mapping function, continue the workflow towards a `To Do Item`.
 
-# The framework, by example
+## Optimism through deterministic pessimism
 
+Unless there's a performance **problem actually happening**, treat both [optimistic](#optimistic-lock-enabled-action) and [pessimistic](#pessimistic-lock-enabled-action) integrations as a [pessimistic](#pessimistic-lock-enabled-action) one.
+
+> **!** Since an [optimistic](#optimistic-lock-enabled-action) integration needs to happen in two steps, simply define every step as a different integration.
+
+> **!** Remember that a performance **concern** is not a performance **problem actually happening**, the robustness of pessimistic locked actions allow for an aggressive distribution of the tasks amongst workers, reducing the time required to execute thousands of tasks to the longest execution time of a single one.
+
+# The framework, by example
 The following example is the creation of an order. So simplify the model, any fault and expiration result that maps to a default exit, `Order cancelled` in this case, can be left as an implicit mapping.
 
 ### Legend
