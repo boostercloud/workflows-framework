@@ -30,13 +30,39 @@ Tasks that expose an endpoint that a third party must complete, this might even 
     5. A function that makes a decision based on both the read model and the data received, and **nothing else.**
 3. A function that receives the event that leads to this task and generates a read model.
 
+**The algorithm:**
+```mermaid
+stateDiagram-v2
+	state "To-Do" as td
+	state "Read Model" as rm
+	state "Query Endpoint" as qep
+	state "Command Endpoint" as cep
+  state "Outcome" as oc
+
+	[*] --> td
+	td --> rm: Via function 3
+  [*] --> qep
+  qep --> rm: Defined in function 2.4
+  [*] --> cep: With the contract \n access control from 1.1 and 1.2
+  rm --> cep: Feeds data for function 2.5
+  cep --> oc: Based on decision made in 2.5
+
+	classDef event fill:#de7316
+	classDef readModel fill:#34eb86
+	classDef command fill:#34abeb
+
+	class td, oc event
+	class rm, qep readModel
+	class cep command
+```
+
 # State
 
 Tasks that receive an event, attempt an action and, once successful, make a decision and emit a new event.
 
 ### Retriability
 
-All state tasks can define retry logic, this is done through a backoff function that receives how many times the function has been attempted, the event, the `Task identifier`and an optional error type (an exception in most languages), and returns either an amount of time to wait until the next attempt or a decision to not try again.
+All state tasks can define retry logic, this is done through a back off function that receives how many times the function has been attempted, the event, the `Task identifier`and an optional error type (an exception in most languages), and returns either an amount of time to wait until the next attempt or a decision to not try again.
 
 To implement this function, it is important to take into account the “retriability” of a task based on the risk assessment made in the business concern section.
 
@@ -83,3 +109,19 @@ The definition of this task consists on:
 
 1. A function that receives the event and the `Task identifier`, attempts the task, and uses its outcome to make a decision.
 2. A function that receives the event, the `Task identifier`, and the time the previous attempt started and makes a decision.
+
+**Legend:**
+```mermaid
+stateDiagram-v2
+	state "Event" as eventBox
+	state "Read Model" as emBox
+	state "Command" as cmdBox
+
+	classDef event fill:#de7316
+	classDef readModel fill:#34eb86
+	classDef command fill:#34abeb
+
+	class eventBox event
+	class emBox readModel
+	class cmdBox command
+```

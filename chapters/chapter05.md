@@ -12,6 +12,8 @@ The `Task` is executed against a service that provides a mechanism to uniquely i
 
 e.g. Many payment providers accept an `Idempotency Key` in their requests, so if we attempt a refund, and we generate a unique key per refund, we know we will never refund more than once.
 
+Simply add the `Idempotency Key` to the request, any parallel executions, or retries due to failure to register the outcome will be ignored by the third party.
+
 ## Optimistic lock enabled
 
 This is a`Task` with the following characteristics:

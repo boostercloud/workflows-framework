@@ -1,6 +1,6 @@
 ---
 title: "Railway Event Processor"
-author: "Yeray Cabello"
+author: "The Agile Monkeys - Yeray Cabello"
 header-includes:
   - \usepackage{geometry}
   - \usepackage{cascadia-code}
