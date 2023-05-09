@@ -8,5 +8,5 @@ header-includes:
   - \usepackage[T1]{fontenc}
 geometry: margin=2.5cm
 ---
-A proposal for an integral default approach for the design and implementation of third party integrations in event sourced systems.
+A proposal for an integral default approach for the design and implementation of third party integrations in event-sourced systems.
 
