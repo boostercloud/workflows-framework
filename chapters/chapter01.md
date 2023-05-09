@@ -90,4 +90,4 @@ These techniques allow us to address `fault tolerance` and `concurrency` issues,
 
 ## The proposed solution
 
-This paper will shape all the elements needed to model a unique take on the Process Manager Pattern that borrows (liberally) one idea from the Saga Pattern in order to design a `State Machine` that will be composed of `Tasks`, each one of them with every possible outcome mapped in a way that it will eventually perform a `Outcome event` which represent a final state in a `State Machine`.
+This paper will shape all the elements needed to model a unique take on the Process Manager Pattern that borrows (liberally) one idea from the Saga Pattern in order to design a `State Machine` that will be composed of `Tasks`, each one of them with every possible outcome mapped in a way that it will eventually perform an `Outcome event` which represent a final state in a `State Machine`.

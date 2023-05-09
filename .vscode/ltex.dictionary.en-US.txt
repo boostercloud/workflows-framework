@@ -1,3 +1,4 @@
 retriability
 idempotency
 Idempotency
+Lamport

@@ -4,16 +4,8 @@ Before delving into the concept of a task as the key component of our solution, 
 
 For instance, consider a series of tasks, labeled A to D, where task B is an action to be performed with information obtained from the result of A. Task A has the responsibility to start B. Then, when B completes, it will decide whether to continue with C, because customer support has to make a review, or D, which is a straightforward automatic process. Finally, either of them will emit an event with the outcome of the workflow.
 
-The aforementioned configuration can be represented using a mermaid diagram as follows:
+The aforementioned configuration can be represented using a diagram as follows:
 
-```mermaid
-graph LR
-  A --> B
-  B --> C
-  B --> D
-  C --> E
-  D --> E
-```
 ```mermaid
 stateDiagram-v2
   state "Start Workflow" as sw
@@ -24,7 +16,6 @@ stateDiagram-v2
   B --> D: To process
   C --> rw
   D --> rw
-
 
 	classDef event fill:#de7316
 	classDef stt fill:olive

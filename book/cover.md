@@ -8,5 +8,5 @@ header-includes:
   - \usepackage[T1]{fontenc}
 geometry: margin=2.5cm
 ---
-A proposal for a common language to discuss and reason about systems integrations and the business flows that make use of them.
+A proposal for an integral default approach for the design and implementation of third party integrations in event sourced systems.
 
