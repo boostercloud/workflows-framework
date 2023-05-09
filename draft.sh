@@ -9,6 +9,7 @@ do
   content=$(cat $fl)
   echo $'\\pagebreak' > $fl
   echo "$content" >> $fl
+  sed -E 's/\]\(\.[^\.]*\.md#/](#/g' -i $fl
 done
 
 files="./tmp/book/cover.md $(find ./tmp/chapters -type f | sort -t '\0' -n | tr '\n' ' ')"
