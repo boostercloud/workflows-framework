@@ -33,29 +33,29 @@ Tasks that expose an endpoint that a third party must complete, this might even 
 **The algorithm:**
 ```mermaid
 stateDiagram-v2
-	state "To-Do" as td
-	state "Read Model" as rm
-	state "Query Endpoint" as qep
-	state "Command Endpoint" as cep
+  state "To-Do" as td
+  state "Read Model" as rm
+  state "Query Endpoint" as qep
+  state "Command Endpoint" as cep
   state "Outcome" as oc
   state "Third party" as tp
 
-	[*] --> td
-	td --> rm: Via function 3
+  [*] --> td
+  td --> rm: Via function 3
   tp --> qep
   qep --> rm: Defined in function 2.4
   tp --> cep: With the contract \n access control from 1.1 and 1.2
   rm --> cep: Feeds data for function 2.5
   cep --> oc: Based on decision made in 2.5
 
-	classDef event fill:#de7316
-	classDef readModel fill:#34eb86
-	classDef command fill:#34abeb
-	classDef thirdParty fill:#d1ce19
+  classDef event fill:#de7316
+  classDef readModel fill:#34eb86
+  classDef command fill:#34abeb
+  classDef thirdParty fill:#d1ce19
 
-	class td, oc event
-	class rm, qep readModel
-	class cep command
+  class td, oc event
+  class rm, qep readModel
+  class cep command
   class tp thirdParty
 ```
 **Legend:**

@@ -7,3 +7,4 @@ sudo apt-get install \
   texlive-fonts-extra
 
 npm install --global @marcelmaatkamp/mermaid-filter
+npm install -g @mermaid-js/mermaid-cli

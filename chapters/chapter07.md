@@ -6,7 +6,7 @@ Once taken the concerns into account, a decision has to be made about handling p
 
 ## At least once
 
-If there’s a suspicion that the task has failed, it will be retried indefinitely, assuming the risk that it might happen more than once. It is important to understand that this means to attempt it until its success `is registered` or it expires, meaning that it might even succeed indefinitely.
+If there’s a suspicion that the task has failed, it will be retried indefinitely, assuming the risk that it might happen more than once. It is important to understand that this means to attempt it until its success `is registered`, or it expires, meaning that it might even succeed indefinitely.
 
 e.g. Blocking a user that has been deemed hostile should be attempted until success is registered.
 
@@ -30,4 +30,4 @@ e.g. A user requested the deletion of their private data, but the confirmation e
 
 # The conclusion
 
-The outcome of a task that has been deemed `possibly failed` needs to be mapped to a business outcome, that is, a `transition`. All of the other conclusions are mapped just like the deterministic ones.
+The outcome of a task that has been deemed `possibly failed` needs to be mapped to a business outcome, that is, a `transition`. All the other conclusions are mapped just like the deterministic ones.

@@ -17,13 +17,13 @@ stateDiagram-v2
   C --> rw
   D --> rw
 
-	classDef event fill:#de7316
-	classDef stt fill:olive
-	classDef tdi fill:teal
+  classDef event fill:#de7316
+  classDef stt fill:olive
+  classDef tdi fill:teal
 
-	class sw, rw event
-	class A, B, D stt
-	class C tdi
+  class sw, rw event
+  class A, B, D stt
+  class C tdi
 ```
 
 This example serves merely as an illustration of a possible task orchestration scenario. The crucial idea to grasp at this stage is that tasks will run in sequence, and that they are unlikely to show unexpected behavior, forming execution graphs of arbitrary complexity. These execution graphs provide a mental map of the system's orchestration, enabling efficient and adaptable process modeling.
