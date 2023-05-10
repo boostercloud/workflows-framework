@@ -36,4 +36,3 @@ The solution design is built around the assumption of an event-sourced, or at le
 
 The end goal is to provide a [safe](./chapter99glossary.md#code-safety) structure to connect every step of these processes, so they can be built and maintained as a deterministic state machine.
 
-> Every part of the paper is written as a sub-page at the moment to facilitate review, later on, this will be merged in a single document.
