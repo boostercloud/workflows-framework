@@ -8,7 +8,7 @@ Integrating systems poses a series of challenges that are unique to running a pr
     1. Actions that need to be executed in series, each one after the previous has been successfully executed and accepted.
         1. There’s also the possibility that one of these steps is composed with a battery of actions that can, and often should, (for efficiency reasons) be performed in parallel. Which would imply following the patterns for point `b`.
     2. Actions that can, and often should, (for efficiency reasons) be performed in parallel.
-        1. There’s also that some of the actions might be composed of a series of actions, that have to be executed following the patterns for point `a`.
+        1. There’s also that some actions might be composed of a series of actions, that have to be executed following the patterns for point `a`.
     3. In both of the previous cases, there might be a need to “undo” the actions that have been already executed successfully when one of them is rejected or fails.
         1. This poses the additional challenge that the undo actions might fail or be rejected.
     4. Both scenarios `a.i` and `b.i` might nest upon each other, it’s unlikely that it would happen at many levels, but enough to become difficult do reason about without a helpful abstraction. Then take into account `c` and `c.i` and you can begin to see why orchestration is not a trivial issue.
@@ -31,7 +31,7 @@ e.g. Two actions might involve requesting the available stock for a product, whi
 4. **Communication**: There is a need to send a message from one step of the process to another since they do not exist in the same machine. REST APIs, RPC protocols, and messaging/streaming are the most used ones, but for reliability, [the last option is the preferred one for its asynchrony and the ease of building abstraction and utility layers around, to prevent contract coupling, facilitate data translation, avoid corrupted data to go through](https://www.enterpriseintegrationpatterns.com/patterns/messaging/Messaging.html)…
 
 
-> **???** It is understandable to find that `1.c, undoing actions` should fall under `Fault tolerance`, especially given that the [existing literature](https://www.researchgate.net/publication/341244111_Fault_Tolerant_Central_Saga_Orchestrator_in_RESTful_Architecture) puts it under such umbrella. It is one of the key takeaways of this monogram to make a clear differentiation in this case, and to treat actions that have been [rejected](#completed-task) in a different manner to actions that have [failed](#failed-task).
+> **???** It is understandable to find that `1.c, undoing actions` should fall under `Fault tolerance`, especially given that the [existing literature](https://www.researchgate.net/publication/341244111_Fault_Tolerant_Central_Saga_Orchestrator_in_RESTful_Architecture) puts it under such umbrella. It is one of the key takeaways of this monogram to make a clear differentiation in this case, and to treat actions that have been [rejected](#completed-task) differently to actions that have [failed](#failed-task).
 
 ## Existing approaches
 
@@ -54,8 +54,6 @@ Truth tables can help us explore the possible outputs of a conditional statement
 Using a truth table allows one to visualize all the possible states, which forces the mind to actively reason about the problem.
 
 This is all well for conditionals running inside the memory of a single computer, but distributed systems integrating other distributed systems have a spectrum of possible interactions with so many combinations that no table that fits within the observable universe can hold them.
-
-- [ ]  *TODO: Add a diagram illustrating the space of states in a distributed system.*
 
 Tools like [TLA$^+$](https://lamport.azurewebsites.net/tla/tla.html) and [Alloy](https://haslab.github.io/formal-software-design/) can help us reason about every step in a process that can fail for different reasons by forcing us to specify every possible way the system can behave.
 

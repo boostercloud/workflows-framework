@@ -26,6 +26,7 @@ function generate() {
 }
 
 generate "pdf"
+generate "html"
 
 rm -rf ./tmp
 
