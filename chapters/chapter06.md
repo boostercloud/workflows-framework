@@ -40,6 +40,10 @@ e.g. A refund is not sent when it’s due.
 The kind of consequences suffered:
 
 - **Reputation.**
+e.g. A customer gets charged twice for a product. Event after returning the amount, the customer might not come back.
 - **Legal.**
+e.g. A Service Level Agreement is not met, a customer loses business because of that, and sues us for the losses.
 - **Data breach.**
+e.g. There is an email with an invoice from customer "A" sent to customer "B", leaking GDPR protected information.
 - **Economic loss.**
+e.g. An expensive product was bought, but an error caused two of them to be sent.
