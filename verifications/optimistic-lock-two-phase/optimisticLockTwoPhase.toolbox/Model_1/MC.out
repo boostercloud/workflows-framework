@@ -1,0 +1,483 @@
+@!@!@STARTMSG 2262:0 @!@!@
+TLC2 Version 2.16 of 31 December 2020 (rev: cdddf55)
+@!@!@ENDMSG 2262 @!@!@
+@!@!@STARTMSG 2187:0 @!@!@
+Running breadth-first search Model-Checking with fp 36 and seed -7025924668293559791 with 10 workers on 20 cores with 2356MB heap and 5294MB offheap memory [pid: 33211] (Linux 5.19.0-41-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+@!@!@ENDMSG 2187 @!@!@
+@!@!@STARTMSG 2220:0 @!@!@
+Starting SANY...
+@!@!@ENDMSG 2220 @!@!@
+Parsing file /home/yeray/repos/workflows-framework/verifications/optimistic-lock-two-phase/optimisticLockTwoPhase.toolbox/Model_1/MC.tla
+Parsing file /home/yeray/repos/workflows-framework/verifications/optimistic-lock-two-phase/optimisticLockTwoPhase.toolbox/Model_1/optimisticLockTwoPhase.tla
+Parsing file /opt/TLA+Toolbox/plugins/org.lamport.tlatools_1.0.0.202012311918/tla2sany/StandardModules/TLC.tla
+Parsing file /opt/TLA+Toolbox/plugins/org.lamport.tlatools_1.0.0.202012311918/tla2sany/StandardModules/Integers.tla
+Parsing file /opt/TLA+Toolbox/plugins/org.lamport.tlatools_1.0.0.202012311918/tla2sany/StandardModules/Sequences.tla
+Parsing file /opt/TLA+Toolbox/plugins/org.lamport.tlatools_1.0.0.202012311918/tla2sany/StandardModules/Naturals.tla
+Parsing file /opt/TLA+Toolbox/plugins/org.lamport.tlatools_1.0.0.202012311918/tla2sany/StandardModules/FiniteSets.tla
+Semantic processing of module Naturals
+Semantic processing of module Integers
+Semantic processing of module Sequences
+Semantic processing of module optimisticLockTwoPhase
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module MC
+@!@!@STARTMSG 2219:0 @!@!@
+SANY finished.
+@!@!@ENDMSG 2219 @!@!@
+@!@!@STARTMSG 2185:0 @!@!@
+Starting... (2023-05-22 15:51:20)
+@!@!@ENDMSG 2185 @!@!@
+@!@!@STARTMSG 2212:0 @!@!@
+Implied-temporal checking--satisfiability problem has 2 branches.
+@!@!@ENDMSG 2212 @!@!@
+@!@!@STARTMSG 2189:0 @!@!@
+Computing initial states...
+@!@!@ENDMSG 2189 @!@!@
+@!@!@STARTMSG 2190:0 @!@!@
+Finished computing initial states: 1 distinct state generated at 2023-05-22 15:51:20.
+@!@!@ENDMSG 2190 @!@!@
+@!@!@STARTMSG 2192:0 @!@!@
+Checking 2 branches of temporal properties for the current state space with 318134 total distinct states at (2023-05-22 15:51:23)
+@!@!@ENDMSG 2192 @!@!@
+@!@!@STARTMSG 2267:0 @!@!@
+Finished checking temporal properties in 00s at 2023-05-22 15:51:24
+@!@!@ENDMSG 2267 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(40) at 2023-05-22 15:51:24: 335,924 states generated (335,924 s/min), 167,038 distinct states found (167,038 ds/min), 15,897 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(67) at 2023-05-22 15:51:27: 793,817 states generated, 376,425 distinct states found, 0 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2192:0 @!@!@
+Checking 2 branches of temporal properties for the complete state space with 752850 total distinct states at (2023-05-22 15:51:27)
+@!@!@ENDMSG 2192 @!@!@
+@!@!@STARTMSG 2267:0 @!@!@
+Finished checking temporal properties in 01s at 2023-05-22 15:51:29
+@!@!@ENDMSG 2267 @!@!@
+@!@!@STARTMSG 2193:0 @!@!@
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 8.5E-9
+  based on the actual fingerprints:  val = 5.0E-10
+@!@!@ENDMSG 2193 @!@!@
+@!@!@STARTMSG 2201:0 @!@!@
+The coverage statistics at 2023-05-22 15:51:30
+@!@!@ENDMSG 2201 @!@!@
+@!@!@STARTMSG 2773:0 @!@!@
+<Init line 143, col 1 to line 143, col 4 of module optimisticLockTwoPhase>: 1:1
+@!@!@ENDMSG 2773 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 144, col 9 to line 149, col 45 of module optimisticLockTwoPhase: 1
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<Loop line 151, col 1 to line 151, col 10 of module optimisticLockTwoPhase>: 93375:155450
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 151, col 18 to line 151, col 34 of module optimisticLockTwoPhase: 908314
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 151, col 18 to line 151, col 25 of module optimisticLockTwoPhase: 752864
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 152, col 21 to line 152, col 70 of module optimisticLockTwoPhase: 155450
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 152, col 48 to line 152, col 70 of module optimisticLockTwoPhase: 454094
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 152, col 33 to line 152, col 45 of module optimisticLockTwoPhase: 155450
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 153, col 26 to line 153, col 69 of module optimisticLockTwoPhase: 100928
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 154, col 26 to line 154, col 62 of module optimisticLockTwoPhase: 54522
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 155, col 18 to line 155, col 80 of module optimisticLockTwoPhase: 155450
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<ChooseOrder line 157, col 1 to line 157, col 17 of module optimisticLockTwoPhase>: 56893:119450
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 157, col 25 to line 157, col 48 of module optimisticLockTwoPhase: 872314
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 157, col 25 to line 157, col 32 of module optimisticLockTwoPhase: 752864
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 158, col 28 to line 158, col 78 of module optimisticLockTwoPhase: 119450
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 158, col 29 to line 158, col 78 of module optimisticLockTwoPhase: 119450
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 158, col 56 to line 158, col 78 of module optimisticLockTwoPhase: 346094
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 158, col 41 to line 158, col 53 of module optimisticLockTwoPhase: 119450
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 159, col 36 to line 159, col 70 of module optimisticLockTwoPhase: 18522
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 160, col 36 to line 160, col 55 of module optimisticLockTwoPhase: 18522
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 161, col 36 to line 161, col 133 of module optimisticLockTwoPhase: 100928
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 161, col 50 to line 161, col 133 of module optimisticLockTwoPhase: 100928
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 161, col 51 to line 161, col 60 of module optimisticLockTwoPhase: 100928
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 161, col 69 to line 161, col 132 of module optimisticLockTwoPhase: 100928
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 161, col 79 to line 161, col 132 of module optimisticLockTwoPhase: 100928
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 161, col 110 to line 161, col 132 of module optimisticLockTwoPhase: 290528
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 161, col 95 to line 161, col 107 of module optimisticLockTwoPhase: 100928
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 162, col 36 to line 162, col 79 of module optimisticLockTwoPhase: 100928
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 163, col 25 to line 163, col 75 of module optimisticLockTwoPhase: 119450
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<CreateDelivery line 165, col 1 to line 165, col 20 of module optimisticLockTwoPhase>: 52945:135163
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 165, col 28 to line 165, col 54 of module optimisticLockTwoPhase: 888027
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 165, col 28 to line 165, col 35 of module optimisticLockTwoPhase: 752864
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 166, col 32 to line 166, col 140 of module optimisticLockTwoPhase: 135163
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 166, col 33 to line 166, col 140 of module optimisticLockTwoPhase: 135163
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 166, col 62 to line 166, col 140 of module optimisticLockTwoPhase: 548008
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 166, col 62 to line 166, col 89 of module optimisticLockTwoPhase: 548008
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 166, col 94 to line 166, col 140 of module optimisticLockTwoPhase: 280122
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 166, col 43 to line 166, col 59 of module optimisticLockTwoPhase: 135163
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 167, col 36 to line 167, col 148 of module optimisticLockTwoPhase: 50383
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 168, col 39 to line 168, col 42 of module optimisticLockTwoPhase: 84780
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 169, col 39 to line 169, col 58 of module optimisticLockTwoPhase: 84780
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 170, col 28 to line 170, col 75 of module optimisticLockTwoPhase: 135163
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 171, col 28 to line 171, col 78 of module optimisticLockTwoPhase: 135163
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<TryConfirmDelivery line 173, col 1 to line 173, col 24 of module optimisticLockTwoPhase>: 49790:165324
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 173, col 32 to line 173, col 62 of module optimisticLockTwoPhase: 851817
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 173, col 32 to line 173, col 39 of module optimisticLockTwoPhase: 752864
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 174, col 35 to line 174, col 67 of module optimisticLockTwoPhase: 98953
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 176, col 55 to line 176, col 152 of module optimisticLockTwoPhase: 66371
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 176, col 84 to line 176, col 152 of module optimisticLockTwoPhase: 260509
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 176, col 84 to line 176, col 101 of module optimisticLockTwoPhase: 260509
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 176, col 84 to line 176, col 85 of module optimisticLockTwoPhase: 260509
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 176, col 89 to line 176, col 101 of module optimisticLockTwoPhase: 260509
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 175, col 70 to line 175, col 181 of module optimisticLockTwoPhase: 260509
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 175, col 103 to line 175, col 181 of module optimisticLockTwoPhase: 1136263
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||||line 175, col 103 to line 175, col 149 of module optimisticLockTwoPhase: 1136263
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||||line 175, col 154 to line 175, col 181 of module optimisticLockTwoPhase: 372381
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 175, col 84 to line 175, col 100 of module optimisticLockTwoPhase: 260509
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 176, col 106 to line 176, col 152 of module optimisticLockTwoPhase: 203976
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 176, col 65 to line 176, col 81 of module optimisticLockTwoPhase: 66371
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 177, col 62 to line 177, col 96 of module optimisticLockTwoPhase: 33458
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 178, col 62 to line 178, col 81 of module optimisticLockTwoPhase: 33458
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 179, col 62 to line 179, col 128 of module optimisticLockTwoPhase: 32913
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 179, col 76 to line 179, col 128 of module optimisticLockTwoPhase: 32913
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 179, col 77 to line 179, col 86 of module optimisticLockTwoPhase: 32913
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 179, col 97 to line 179, col 109 of module optimisticLockTwoPhase: 32913
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 175, col 70 to line 175, col 181 of module optimisticLockTwoPhase: 32913
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 175, col 103 to line 175, col 181 of module optimisticLockTwoPhase: 125017
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 175, col 103 to line 175, col 149 of module optimisticLockTwoPhase: 125017
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 175, col 154 to line 175, col 181 of module optimisticLockTwoPhase: 32913
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 175, col 84 to line 175, col 100 of module optimisticLockTwoPhase: 32913
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 179, col 124 to line 179, col 127 of module optimisticLockTwoPhase: 32913
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 180, col 62 to line 180, col 111 of module optimisticLockTwoPhase: 32913
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 181, col 49 to line 181, col 73 of module optimisticLockTwoPhase: 66371
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 182, col 49 to line 182, col 143 of module optimisticLockTwoPhase: 66371
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 183, col 49 to line 183, col 83 of module optimisticLockTwoPhase: 66371
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 184, col 49 to line 184, col 68 of module optimisticLockTwoPhase: 66371
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 186, col 49 to line 186, col 146 of module optimisticLockTwoPhase: 32582
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 186, col 78 to line 186, col 146 of module optimisticLockTwoPhase: 129354
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 186, col 78 to line 186, col 95 of module optimisticLockTwoPhase: 129354
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 186, col 78 to line 186, col 79 of module optimisticLockTwoPhase: 129354
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 186, col 83 to line 186, col 95 of module optimisticLockTwoPhase: 129354
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 185, col 64 to line 185, col 175 of module optimisticLockTwoPhase: 129354
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 185, col 97 to line 185, col 175 of module optimisticLockTwoPhase: 564342
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||||line 185, col 97 to line 185, col 143 of module optimisticLockTwoPhase: 564342
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||||line 185, col 148 to line 185, col 175 of module optimisticLockTwoPhase: 184390
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 185, col 78 to line 185, col 94 of module optimisticLockTwoPhase: 129354
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 186, col 100 to line 186, col 146 of module optimisticLockTwoPhase: 101088
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 186, col 59 to line 186, col 75 of module optimisticLockTwoPhase: 32582
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 187, col 56 to line 187, col 90 of module optimisticLockTwoPhase: 16126
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 188, col 56 to line 188, col 75 of module optimisticLockTwoPhase: 16126
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 189, col 56 to line 189, col 122 of module optimisticLockTwoPhase: 16456
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 189, col 70 to line 189, col 122 of module optimisticLockTwoPhase: 16456
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 189, col 71 to line 189, col 80 of module optimisticLockTwoPhase: 16456
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 189, col 91 to line 189, col 103 of module optimisticLockTwoPhase: 16456
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 185, col 64 to line 185, col 175 of module optimisticLockTwoPhase: 16456
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 185, col 97 to line 185, col 175 of module optimisticLockTwoPhase: 62508
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 185, col 97 to line 185, col 143 of module optimisticLockTwoPhase: 62508
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 185, col 148 to line 185, col 175 of module optimisticLockTwoPhase: 16456
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 185, col 78 to line 185, col 94 of module optimisticLockTwoPhase: 16456
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 189, col 118 to line 189, col 121 of module optimisticLockTwoPhase: 16456
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 190, col 56 to line 190, col 105 of module optimisticLockTwoPhase: 16456
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 191, col 43 to line 191, col 67 of module optimisticLockTwoPhase: 32582
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 192, col 32 to line 192, col 65 of module optimisticLockTwoPhase: 165324
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<MarkOrderAsProcessed line 194, col 1 to line 194, col 26 of module optimisticLockTwoPhase>: 38769:57362
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 194, col 34 to line 194, col 66 of module optimisticLockTwoPhase: 787281
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 194, col 34 to line 194, col 41 of module optimisticLockTwoPhase: 752864
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 195, col 37 to line 195, col 66 of module optimisticLockTwoPhase: 34417
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 196, col 51 to line 196, col 112 of module optimisticLockTwoPhase: 22945
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 197, col 51 to line 197, col 75 of module optimisticLockTwoPhase: 22945
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 198, col 51 to line 198, col 139 of module optimisticLockTwoPhase: 22945
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 199, col 51 to line 199, col 66 of module optimisticLockTwoPhase: 22945
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 200, col 45 to line 200, col 106 of module optimisticLockTwoPhase: 11472
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 201, col 45 to line 201, col 69 of module optimisticLockTwoPhase: 11472
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 202, col 34 to line 202, col 68 of module optimisticLockTwoPhase: 57362
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 203, col 34 to line 203, col 71 of module optimisticLockTwoPhase: 57362
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<Break line 205, col 1 to line 205, col 11 of module optimisticLockTwoPhase>: 84652:154909
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 205, col 19 to line 205, col 36 of module optimisticLockTwoPhase: 907773
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 205, col 19 to line 205, col 26 of module optimisticLockTwoPhase: 752864
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 206, col 19 to line 206, col 22 of module optimisticLockTwoPhase: 154909
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 207, col 19 to line 207, col 52 of module optimisticLockTwoPhase: 154909
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 208, col 19 to line 208, col 81 of module optimisticLockTwoPhase: 154909
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<Terminating line 215, col 1 to line 215, col 11 of module optimisticLockTwoPhase>: 0:6174
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 215, col 40 to line 215, col 56 of module optimisticLockTwoPhase: 416041
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 215, col 40 to line 215, col 47 of module optimisticLockTwoPhase: 403693
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 215, col 31 to line 215, col 37 of module optimisticLockTwoPhase: 376432
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 216, col 19 to line 216, col 32 of module optimisticLockTwoPhase: 6174
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2774:0 @!@!@
+<NoDoubleBookings line 132, col 1 to line 132, col 16 of module optimisticLockTwoPhase>
+@!@!@ENDMSG 2774 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 133, col 3 to line 135, col 60 of module optimisticLockTwoPhase: 376425
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 134, col 3 to line 135, col 60 of module optimisticLockTwoPhase: 977640
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 134, col 4 to line 135, col 60 of module optimisticLockTwoPhase: 977640
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 135, col 3 to line 135, col 60 of module optimisticLockTwoPhase: 1677576
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 134, col 15 to line 134, col 51 of module optimisticLockTwoPhase: 977640
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 133, col 15 to line 133, col 40 of module optimisticLockTwoPhase: 376425
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2202:0 @!@!@
+End of statistics.
+@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(67) at 2023-05-22 15:51:30: 793,817 states generated (4,408,869 s/min), 376,425 distinct states found (2,090,669 ds/min), 0 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2199:0 @!@!@
+793817 states generated, 376425 distinct states found, 0 states left on queue.
+@!@!@ENDMSG 2199 @!@!@
+@!@!@STARTMSG 2194:0 @!@!@
+The depth of the complete state graph search is 67.
+@!@!@ENDMSG 2194 @!@!@
+@!@!@STARTMSG 2268:0 @!@!@
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 4 and the 95th percentile is 2).
+@!@!@ENDMSG 2268 @!@!@
+@!@!@STARTMSG 2186:0 @!@!@
+Finished in 10813ms at (2023-05-22 15:51:30)
+@!@!@ENDMSG 2186 @!@!@

@@ -2,16 +2,12 @@
 **/.idea/**
 
 **/.DS_Store
-**/verifications/**/*.toolbox/model
 **/verifications/**/*.toolbox/*aux
 **/verifications/**/*.toolbox/*.log
 **/verifications/**/*.toolbox/*.pdf
 **/verifications/**/*.toolbox/*.tex
 **/verifications/**/*.toolbox/*___*_SnapShot*.launch
 **/verifications/**/*_SnapShot_*/*
-**/verifications/**/*.toolbox/**/*.tla
-**/verifications/**/*.toolbox/**/*.out
-**/verifications/**/*.toolbox/**/MC.cfg
 **/verifications/**/*.pdf
 **/verifications/**/*.old
 **/*~
