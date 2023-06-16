@@ -1,0 +1,286 @@
+@!@!@STARTMSG 2262:0 @!@!@
+TLC2 Version 2.16 of 31 December 2020 (rev: cdddf55)
+@!@!@ENDMSG 2262 @!@!@
+@!@!@STARTMSG 2187:0 @!@!@
+Running breadth-first search Model-Checking with fp 75 and seed -1066081740174984144 with 10 workers on 20 cores with 2356MB heap and 5294MB offheap memory [pid: 49321] (Linux 5.19.0-43-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+@!@!@ENDMSG 2187 @!@!@
+@!@!@STARTMSG 2220:0 @!@!@
+Starting SANY...
+@!@!@ENDMSG 2220 @!@!@
+Parsing file /home/yeray/repos/workflows-framework/verifications/pessimistic-lock/pessimisticl_lock.toolbox/Model_1/MC.tla
+Parsing file /home/yeray/repos/workflows-framework/verifications/pessimistic-lock/pessimisticl_lock.toolbox/Model_1/pessimisticl_lock.tla
+Parsing file /opt/TLA+Toolbox/plugins/org.lamport.tlatools_1.0.0.202012311918/tla2sany/StandardModules/TLC.tla
+Parsing file /opt/TLA+Toolbox/plugins/org.lamport.tlatools_1.0.0.202012311918/tla2sany/StandardModules/Integers.tla
+Parsing file /opt/TLA+Toolbox/plugins/org.lamport.tlatools_1.0.0.202012311918/tla2sany/StandardModules/Sequences.tla
+Parsing file /opt/TLA+Toolbox/plugins/org.lamport.tlatools_1.0.0.202012311918/tla2sany/StandardModules/Naturals.tla
+Parsing file /opt/TLA+Toolbox/plugins/org.lamport.tlatools_1.0.0.202012311918/tla2sany/StandardModules/FiniteSets.tla
+Semantic processing of module Naturals
+Semantic processing of module Integers
+Semantic processing of module Sequences
+Semantic processing of module pessimisticl_lock
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module MC
+@!@!@STARTMSG 2219:0 @!@!@
+SANY finished.
+@!@!@ENDMSG 2219 @!@!@
+@!@!@STARTMSG 2185:0 @!@!@
+Starting... (2023-06-16 15:32:28)
+@!@!@ENDMSG 2185 @!@!@
+@!@!@STARTMSG 2212:0 @!@!@
+Implied-temporal checking--satisfiability problem has 2 branches.
+@!@!@ENDMSG 2212 @!@!@
+@!@!@STARTMSG 2189:0 @!@!@
+Computing initial states...
+@!@!@ENDMSG 2189 @!@!@
+@!@!@STARTMSG 2190:0 @!@!@
+Finished computing initial states: 1 distinct state generated at 2023-06-16 15:32:29.
+@!@!@ENDMSG 2190 @!@!@
+@!@!@STARTMSG 1000:1 @!@!@
+TLC threw an unexpected exception.
+This was probably caused by an error in the spec or model.
+See the User Output or TLC Console for clues to what happened.
+The exception was a java.lang.RuntimeException
+: Attempted to compute the value of an expression of form
+CHOOSE x \in S: P, but no element of S satisfied P.
+line 100, col 76 to line 100, col 119 of module pessimisticl_lock
+@!@!@ENDMSG 1000 @!@!@
+@!@!@STARTMSG 2121:1 @!@!@
+The behavior up to this point is:
+@!@!@ENDMSG 2121 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+1: <Initial predicate>
+/\ lockStorage = <<>>
+/\ errors = [main1 |-> 0, main2 |-> 0]
+/\ currentBugIndex = [main1 |-> -1, main2 |-> -1]
+/\ bugs = <<[processed |-> FALSE, id |-> 1], [processed |-> FALSE, id |-> 2]>>
+/\ pc = [main1 |-> "Loop", main2 |-> "Loop"]
+/\ tickets = <<>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+2: <Loop line 92, col 15 to line 97, col 39 of module pessimisticl_lock>
+/\ lockStorage = <<>>
+/\ errors = [main1 |-> 0, main2 |-> 0]
+/\ currentBugIndex = [main1 |-> -1, main2 |-> -1]
+/\ bugs = <<[processed |-> FALSE, id |-> 1], [processed |-> FALSE, id |-> 2]>>
+/\ pc = [main1 |-> "Loop", main2 |-> "ChooseBug"]
+/\ tickets = <<>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+3: <Loop line 92, col 15 to line 97, col 39 of module pessimisticl_lock>
+/\ lockStorage = <<>>
+/\ errors = [main1 |-> 0, main2 |-> 0]
+/\ currentBugIndex = [main1 |-> -1, main2 |-> -1]
+/\ bugs = <<[processed |-> FALSE, id |-> 1], [processed |-> FALSE, id |-> 2]>>
+/\ pc = [main1 |-> "ChooseBug", main2 |-> "ChooseBug"]
+/\ tickets = <<>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+4: <ChooseBug line 99, col 20 to line 102, col 72 of module pessimisticl_lock>
+/\ lockStorage = <<>>
+/\ errors = [main1 |-> 0, main2 |-> 0]
+/\ currentBugIndex = [main1 |-> 1, main2 |-> -1]
+/\ bugs = <<[processed |-> FALSE, id |-> 1], [processed |-> FALSE, id |-> 2]>>
+/\ pc = [main1 |-> "Process", main2 |-> "ChooseBug"]
+/\ tickets = <<>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+5: <Process line 104, col 18 to line 107, col 81 of module pessimisticl_lock>
+/\ lockStorage = <<>>
+/\ errors = [main1 |-> 0, main2 |-> 0]
+/\ currentBugIndex = [main1 |-> 1, main2 |-> -1]
+/\ bugs = <<[processed |-> TRUE, id |-> 1], [processed |-> FALSE, id |-> 2]>>
+/\ pc = [main1 |-> "Break", main2 |-> "ChooseBug"]
+/\ tickets = <<>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+6: <Break line 109, col 16 to line 113, col 40 of module pessimisticl_lock>
+/\ lockStorage = <<>>
+/\ errors = [main1 |-> 0, main2 |-> 0]
+/\ currentBugIndex = [main1 |-> 1, main2 |-> -1]
+/\ bugs = <<[processed |-> TRUE, id |-> 1], [processed |-> FALSE, id |-> 2]>>
+/\ pc = [main1 |-> "Loop", main2 |-> "ChooseBug"]
+/\ tickets = <<>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+7: <Loop line 92, col 15 to line 97, col 39 of module pessimisticl_lock>
+/\ lockStorage = <<>>
+/\ errors = [main1 |-> 0, main2 |-> 0]
+/\ currentBugIndex = [main1 |-> 1, main2 |-> -1]
+/\ bugs = <<[processed |-> TRUE, id |-> 1], [processed |-> FALSE, id |-> 2]>>
+/\ pc = [main1 |-> "ChooseBug", main2 |-> "ChooseBug"]
+/\ tickets = <<>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+8: <ChooseBug line 99, col 20 to line 102, col 72 of module pessimisticl_lock>
+/\ lockStorage = <<>>
+/\ errors = [main1 |-> 0, main2 |-> 0]
+/\ currentBugIndex = [main1 |-> 2, main2 |-> -1]
+/\ bugs = <<[processed |-> TRUE, id |-> 1], [processed |-> FALSE, id |-> 2]>>
+/\ pc = [main1 |-> "Process", main2 |-> "ChooseBug"]
+/\ tickets = <<>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+9: <Process line 104, col 18 to line 107, col 81 of module pessimisticl_lock>
+/\ lockStorage = <<>>
+/\ errors = [main1 |-> 0, main2 |-> 0]
+/\ currentBugIndex = [main1 |-> 2, main2 |-> -1]
+/\ bugs = <<[processed |-> TRUE, id |-> 1], [processed |-> TRUE, id |-> 2]>>
+/\ pc = [main1 |-> "Break", main2 |-> "ChooseBug"]
+/\ tickets = <<>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2103:1 @!@!@
+The error occurred when TLC was evaluating the nested
+expressions at the following positions:
+0. Line 99, column 20 to line 102, column 72 in pessimisticl_lock
+1. Line 99, column 23 to line 99, column 44 in pessimisticl_lock
+2. Line 100, column 23 to line 100, column 120 in pessimisticl_lock
+3. Line 100, column 42 to line 100, column 120 in pessimisticl_lock
+4. Line 100, column 76 to line 100, column 119 in pessimisticl_lock
+
+
+@!@!@ENDMSG 2103 @!@!@
+@!@!@STARTMSG 2201:0 @!@!@
+The coverage statistics at 2023-06-16 15:32:29
+@!@!@ENDMSG 2201 @!@!@
+@!@!@STARTMSG 2773:0 @!@!@
+<Init line 83, col 1 to line 83, col 4 of module pessimisticl_lock>: 2:2
+@!@!@ENDMSG 2773 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 84, col 9 to line 90, col 45 of module pessimisticl_lock: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<Loop line 92, col 1 to line 92, col 10 of module pessimisticl_lock>: 35:59
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 92, col 18 to line 92, col 34 of module pessimisticl_lock: 248
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 92, col 18 to line 92, col 25 of module pessimisticl_lock: 189
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 93, col 21 to line 93, col 60 of module pessimisticl_lock: 59
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 93, col 43 to line 93, col 60 of module pessimisticl_lock: 109
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 93, col 30 to line 93, col 40 of module pessimisticl_lock: 59
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 94, col 26 to line 94, col 67 of module pessimisticl_lock: 34
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 95, col 26 to line 95, col 62 of module pessimisticl_lock: 25
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 96, col 18 to line 97, col 39 of module pessimisticl_lock: 59
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<ChooseBug line 99, col 1 to line 99, col 15 of module pessimisticl_lock>: 16:29
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 99, col 23 to line 99, col 44 of module pessimisticl_lock: 215
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 99, col 23 to line 99, col 30 of module pessimisticl_lock: 186
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 100, col 23 to line 100, col 120 of module pessimisticl_lock: 29
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 100, col 42 to line 100, col 120 of module pessimisticl_lock: 37
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 100, col 43 to line 100, col 57 of module pessimisticl_lock: 37
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 100, col 66 to line 100, col 119 of module pessimisticl_lock: 37
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 100, col 76 to line 100, col 119 of module pessimisticl_lock: 37
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 100, col 102 to line 100, col 119 of module pessimisticl_lock: 67
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 100, col 89 to line 100, col 99 of module pessimisticl_lock: 37
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 101, col 23 to line 101, col 59 of module pessimisticl_lock: 29
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 102, col 23 to line 102, col 72 of module pessimisticl_lock: 29
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<Process line 104, col 1 to line 104, col 13 of module pessimisticl_lock>: 24:37
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 104, col 21 to line 104, col 40 of module pessimisticl_lock: 213
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 104, col 21 to line 104, col 28 of module pessimisticl_lock: 176
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 105, col 21 to line 105, col 83 of module pessimisticl_lock: 37
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 106, col 21 to line 106, col 55 of module pessimisticl_lock: 37
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 107, col 21 to line 107, col 81 of module pessimisticl_lock: 37
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<Break line 109, col 1 to line 109, col 11 of module pessimisticl_lock>: 24:41
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 109, col 19 to line 109, col 36 of module pessimisticl_lock: 215
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 109, col 19 to line 109, col 26 of module pessimisticl_lock: 174
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 110, col 19 to line 110, col 22 of module pessimisticl_lock: 41
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 111, col 19 to line 111, col 52 of module pessimisticl_lock: 41
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 112, col 19 to line 113, col 40 of module pessimisticl_lock: 41
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<Terminating line 118, col 1 to line 118, col 11 of module pessimisticl_lock>: 0:1
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 118, col 40 to line 118, col 56 of module pessimisticl_lock: 92
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 118, col 40 to line 118, col 47 of module pessimisticl_lock: 90
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 118, col 31 to line 118, col 37 of module pessimisticl_lock: 83
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 119, col 19 to line 119, col 32 of module pessimisticl_lock: 1
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2202:0 @!@!@
+End of statistics.
+@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(12) at 2023-06-16 15:32:29: 154 states generated (16,861 s/min), 100 distinct states found (10,948 ds/min), 12 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2199:0 @!@!@
+154 states generated, 100 distinct states found, 12 states left on queue.
+@!@!@ENDMSG 2199 @!@!@
+@!@!@STARTMSG 2186:0 @!@!@
+Finished in 552ms at (2023-06-16 15:32:29)
+@!@!@ENDMSG 2186 @!@!@
