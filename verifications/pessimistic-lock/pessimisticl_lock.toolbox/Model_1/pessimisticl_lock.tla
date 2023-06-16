@@ -57,7 +57,11 @@ begin
 Loop:
   while \E b \in DOMAIN bugs: ~bugs[b].processed do
     ChooseBug:
-      currentBugIndex := CHOOSE b \in DOMAIN bugs: ~bugs[b].processed;
+      if \A b \in DOMAIN bugs: bugs[b].processed then
+        goto Break;
+      else
+        currentBugIndex := CHOOSE b \in DOMAIN bugs: ~bugs[b].processed;
+      end if;
     Process:
       bugs[currentBugIndex].processed := TRUE;
     Break:
@@ -65,7 +69,7 @@ Loop:
   end while;
 end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "d4db2522" /\ chksum(tla) = "74643c13")
+\* BEGIN TRANSLATION (chksum(pcal) = "dd5cf547" /\ chksum(tla) = "7e98c226")
 VARIABLES bugs, lockStorage, tickets, pc
 
 (* define statement *)
@@ -97,8 +101,11 @@ Loop(self) == /\ pc[self] = "Loop"
                               errors >>
 
 ChooseBug(self) == /\ pc[self] = "ChooseBug"
-                   /\ currentBugIndex' = [currentBugIndex EXCEPT ![self] = CHOOSE b \in DOMAIN bugs: ~bugs[b].processed]
-                   /\ pc' = [pc EXCEPT ![self] = "Process"]
+                   /\ IF \A b \in DOMAIN bugs: bugs[b].processed
+                         THEN /\ pc' = [pc EXCEPT ![self] = "Break"]
+                              /\ UNCHANGED currentBugIndex
+                         ELSE /\ currentBugIndex' = [currentBugIndex EXCEPT ![self] = CHOOSE b \in DOMAIN bugs: ~bugs[b].processed]
+                              /\ pc' = [pc EXCEPT ![self] = "Process"]
                    /\ UNCHANGED << bugs, lockStorage, tickets, errors >>
 
 Process(self) == /\ pc[self] = "Process"
