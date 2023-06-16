@@ -43,10 +43,17 @@ variables
   tickets = <<>>;
 
 define
-  AllBugsProcessed == \A b \in DOMAIN bugs: bugs[b].processed
+  AllBugsMarked == \A b \in DOMAIN bugs: bugs[b].processed
+
+
+  
+  NoDuplicateReports ==
+    \A b \in DOMAIN tickets:
+    ~\E b2 \in (DOMAIN tickets) \ {b}:
+      tickets[b].bugId = tickets[b2].bugId
 
   Completed ==
-    <>[] AllBugsProcessed
+    <>[] AllBugsMarked
 end define;
 
 fair process main \in { "main1", "main2" }
@@ -69,14 +76,21 @@ Loop:
   end while;
 end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "dd5cf547" /\ chksum(tla) = "7e98c226")
+\* BEGIN TRANSLATION (chksum(pcal) = "ffcbf897" /\ chksum(tla) = "c03b5f0b")
 VARIABLES bugs, lockStorage, tickets, pc
 
 (* define statement *)
-AllBugsProcessed == \A b \in DOMAIN bugs: bugs[b].processed
+AllBugsMarked == \A b \in DOMAIN bugs: bugs[b].processed
+
+
+
+NoDuplicateReports ==
+  \A b \in DOMAIN tickets:
+  ~\E b2 \in (DOMAIN tickets) \ {b}:
+    tickets[b].bugId = tickets[b2].bugId
 
 Completed ==
-  <>[] AllBugsProcessed
+  <>[] AllBugsMarked
 
 VARIABLES currentBugIndex, errors
 

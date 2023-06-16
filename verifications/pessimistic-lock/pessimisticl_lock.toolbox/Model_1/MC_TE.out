@@ -2,7 +2,7 @@
 TLC2 Version 2.16 of 31 December 2020 (rev: cdddf55)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 77 and seed -5763968479065520503 with 10 workers on 20 cores with 2356MB heap and 5294MB offheap memory [pid: 49538] (Linux 5.19.0-43-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 29 and seed 8356907367275547215 with 10 workers on 20 cores with 2356MB heap and 5294MB offheap memory [pid: 50426] (Linux 5.19.0-43-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
@@ -25,7 +25,7 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2023-06-16 15:34:05)
+Starting... (2023-06-16 15:42:46)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2212:0 @!@!@
 Implied-temporal checking--satisfiability problem has 2 branches.
@@ -34,16 +34,16 @@ Implied-temporal checking--satisfiability problem has 2 branches.
 Computing initial states...
 @!@!@ENDMSG 2189 @!@!@
 @!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 1 distinct state generated at 2023-06-16 15:34:06.
+Finished computing initial states: 1 distinct state generated at 2023-06-16 15:42:47.
 @!@!@ENDMSG 2190 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(15) at 2023-06-16 15:34:06: 204 states generated, 118 distinct states found, 0 states left on queue.
+Progress(15) at 2023-06-16 15:42:47: 204 states generated, 118 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2192:0 @!@!@
-Checking 2 branches of temporal properties for the complete state space with 236 total distinct states at (2023-06-16 15:34:06)
+Checking 2 branches of temporal properties for the complete state space with 236 total distinct states at (2023-06-16 15:42:47)
 @!@!@ENDMSG 2192 @!@!@
 @!@!@STARTMSG 2267:0 @!@!@
-Finished checking temporal properties in 00s at 2023-06-16 15:34:06
+Finished checking temporal properties in 00s at 2023-06-16 15:42:47
 @!@!@ENDMSG 2267 @!@!@
 @!@!@STARTMSG 2193:0 @!@!@
 Model checking completed. No error has been found.
@@ -52,148 +52,154 @@ Model checking completed. No error has been found.
   calculated (optimistic):  val = 5.5E-16
 @!@!@ENDMSG 2193 @!@!@
 @!@!@STARTMSG 2201:0 @!@!@
-The coverage statistics at 2023-06-16 15:34:06
+The coverage statistics at 2023-06-16 15:42:47
 @!@!@ENDMSG 2201 @!@!@
 @!@!@STARTMSG 2773:0 @!@!@
-<Init line 87, col 1 to line 87, col 4 of module pessimisticl_lock>: 1:1
+<Init line 101, col 1 to line 101, col 4 of module pessimisticl_lock>: 1:1
 @!@!@ENDMSG 2773 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 88, col 9 to line 94, col 45 of module pessimisticl_lock: 1
+  line 102, col 9 to line 108, col 45 of module pessimisticl_lock: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<Loop line 96, col 1 to line 96, col 10 of module pessimisticl_lock>: 40:72
+<Loop line 110, col 1 to line 110, col 10 of module pessimisticl_lock>: 41:69
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 96, col 18 to line 96, col 34 of module pessimisticl_lock: 322
+  line 110, col 18 to line 110, col 34 of module pessimisticl_lock: 315
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 96, col 18 to line 96, col 25 of module pessimisticl_lock: 250
+  |line 110, col 18 to line 110, col 25 of module pessimisticl_lock: 246
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 97, col 21 to line 97, col 60 of module pessimisticl_lock: 72
+  line 111, col 21 to line 111, col 60 of module pessimisticl_lock: 69
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 97, col 43 to line 97, col 60 of module pessimisticl_lock: 136
+  |line 111, col 43 to line 111, col 60 of module pessimisticl_lock: 131
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 97, col 30 to line 97, col 40 of module pessimisticl_lock: 72
+  |line 111, col 30 to line 111, col 40 of module pessimisticl_lock: 69
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 98, col 26 to line 98, col 67 of module pessimisticl_lock: 34
+  line 112, col 26 to line 112, col 67 of module pessimisticl_lock: 31
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 99, col 26 to line 99, col 62 of module pessimisticl_lock: 38
+  line 113, col 26 to line 113, col 62 of module pessimisticl_lock: 38
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 100, col 18 to line 101, col 39 of module pessimisticl_lock: 72
+  line 114, col 18 to line 115, col 39 of module pessimisticl_lock: 69
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<ChooseBug line 103, col 1 to line 103, col 15 of module pessimisticl_lock>: 19:43
+<ChooseBug line 117, col 1 to line 117, col 15 of module pessimisticl_lock>: 19:41
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 103, col 23 to line 103, col 44 of module pessimisticl_lock: 293
+  line 117, col 23 to line 117, col 44 of module pessimisticl_lock: 287
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 103, col 23 to line 103, col 30 of module pessimisticl_lock: 250
+  |line 117, col 23 to line 117, col 30 of module pessimisticl_lock: 246
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 104, col 26 to line 104, col 64 of module pessimisticl_lock: 43
+  line 118, col 26 to line 118, col 64 of module pessimisticl_lock: 41
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 104, col 48 to line 104, col 64 of module pessimisticl_lock: 78
+  |line 118, col 48 to line 118, col 64 of module pessimisticl_lock: 75
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 104, col 35 to line 104, col 45 of module pessimisticl_lock: 43
+  |line 118, col 35 to line 118, col 45 of module pessimisticl_lock: 41
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 105, col 34 to line 105, col 68 of module pessimisticl_lock: 12
+  line 119, col 34 to line 119, col 68 of module pessimisticl_lock: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 106, col 34 to line 106, col 58 of module pessimisticl_lock: 12
+  line 120, col 34 to line 120, col 58 of module pessimisticl_lock: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 107, col 34 to line 107, col 131 of module pessimisticl_lock: 31
+  line 121, col 34 to line 121, col 131 of module pessimisticl_lock: 29
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 107, col 53 to line 107, col 131 of module pessimisticl_lock: 31
+  |line 121, col 53 to line 121, col 131 of module pessimisticl_lock: 29
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  ||line 107, col 54 to line 107, col 68 of module pessimisticl_lock: 31
+  ||line 121, col 54 to line 121, col 68 of module pessimisticl_lock: 29
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  ||line 107, col 77 to line 107, col 130 of module pessimisticl_lock: 31
+  ||line 121, col 77 to line 121, col 130 of module pessimisticl_lock: 29
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  ||line 107, col 87 to line 107, col 130 of module pessimisticl_lock: 31
+  ||line 121, col 87 to line 121, col 130 of module pessimisticl_lock: 29
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |||line 107, col 113 to line 107, col 130 of module pessimisticl_lock: 54
+  |||line 121, col 113 to line 121, col 130 of module pessimisticl_lock: 51
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |||line 107, col 100 to line 107, col 110 of module pessimisticl_lock: 31
+  |||line 121, col 100 to line 121, col 110 of module pessimisticl_lock: 29
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 108, col 34 to line 108, col 70 of module pessimisticl_lock: 31
+  line 122, col 34 to line 122, col 70 of module pessimisticl_lock: 29
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 109, col 23 to line 109, col 72 of module pessimisticl_lock: 43
+  line 123, col 23 to line 123, col 72 of module pessimisticl_lock: 41
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<Process line 111, col 1 to line 111, col 13 of module pessimisticl_lock>: 25:43
+<Process line 125, col 1 to line 125, col 13 of module pessimisticl_lock>: 25:44
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 111, col 21 to line 111, col 40 of module pessimisticl_lock: 293
+  line 125, col 21 to line 125, col 40 of module pessimisticl_lock: 290
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 111, col 21 to line 111, col 28 of module pessimisticl_lock: 250
+  |line 125, col 21 to line 125, col 28 of module pessimisticl_lock: 246
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 112, col 21 to line 112, col 83 of module pessimisticl_lock: 43
+  line 126, col 21 to line 126, col 83 of module pessimisticl_lock: 44
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 113, col 21 to line 113, col 55 of module pessimisticl_lock: 43
+  line 127, col 21 to line 127, col 55 of module pessimisticl_lock: 44
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 114, col 21 to line 114, col 81 of module pessimisticl_lock: 43
+  line 128, col 21 to line 128, col 81 of module pessimisticl_lock: 44
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<Break line 116, col 1 to line 116, col 11 of module pessimisticl_lock>: 33:54
+<Break line 130, col 1 to line 130, col 11 of module pessimisticl_lock>: 32:54
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 116, col 19 to line 116, col 36 of module pessimisticl_lock: 304
+  line 130, col 19 to line 130, col 36 of module pessimisticl_lock: 300
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 116, col 19 to line 116, col 26 of module pessimisticl_lock: 250
+  |line 130, col 19 to line 130, col 26 of module pessimisticl_lock: 246
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 117, col 19 to line 117, col 22 of module pessimisticl_lock: 54
+  line 131, col 19 to line 131, col 22 of module pessimisticl_lock: 54
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 118, col 19 to line 118, col 52 of module pessimisticl_lock: 54
+  line 132, col 19 to line 132, col 52 of module pessimisticl_lock: 54
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 119, col 19 to line 120, col 40 of module pessimisticl_lock: 54
+  line 133, col 19 to line 134, col 40 of module pessimisticl_lock: 54
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<Terminating line 125, col 1 to line 125, col 11 of module pessimisticl_lock>: 0:5
+<Terminating line 139, col 1 to line 139, col 11 of module pessimisticl_lock>: 0:5
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 125, col 40 to line 125, col 56 of module pessimisticl_lock: 154
+  line 139, col 40 to line 139, col 56 of module pessimisticl_lock: 152
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  |line 125, col 40 to line 125, col 47 of module pessimisticl_lock: 144
+  |line 139, col 40 to line 139, col 47 of module pessimisticl_lock: 142
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 125, col 31 to line 125, col 37 of module pessimisticl_lock: 125
+  line 139, col 31 to line 139, col 37 of module pessimisticl_lock: 123
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 126, col 19 to line 126, col 32 of module pessimisticl_lock: 5
+  line 140, col 19 to line 140, col 32 of module pessimisticl_lock: 5
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2774:0 @!@!@
+<NoDuplicateReports line 87, col 1 to line 87, col 18 of module pessimisticl_lock>
+@!@!@ENDMSG 2774 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 88, col 3 to line 90, col 40 of module pessimisticl_lock: 118
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2202:0 @!@!@
 End of statistics.
 @!@!@ENDMSG 2202 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(15) at 2023-06-16 15:34:06: 204 states generated (21,587 s/min), 118 distinct states found (12,486 ds/min), 0 states left on queue.
+Progress(15) at 2023-06-16 15:42:47: 204 states generated (20,606 s/min), 118 distinct states found (11,919 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
 204 states generated, 118 distinct states found, 0 states left on queue.
@@ -205,5 +211,5 @@ The depth of the complete state graph search is 15.
 The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 2 and the 95th percentile is 2).
 @!@!@ENDMSG 2268 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 571ms at (2023-06-16 15:34:06)
+Finished in 598ms at (2023-06-16 15:42:47)
 @!@!@ENDMSG 2186 @!@!@

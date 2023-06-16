@@ -5,7 +5,7 @@
     <stringAttribute key="distributedNetworkInterface" value="192.168.1.50"/>
     <intAttribute key="distributedNodesCount" value="1"/>
     <stringAttribute key="distributedTLC" value="off"/>
-    <intAttribute key="fpIndex" value="77"/>
+    <intAttribute key="fpIndex" value="29"/>
     <intAttribute key="maxHeapSize" value="25"/>
     <stringAttribute key="modelBehaviorInit" value=""/>
     <stringAttribute key="modelBehaviorNext" value=""/>
@@ -14,7 +14,9 @@
     <stringAttribute key="modelBehaviorVars" value="lockStorage, errors, currentBugIndex, bugs, pc, tickets"/>
     <stringAttribute key="modelComments" value=""/>
     <booleanAttribute key="modelCorrectnessCheckDeadlock" value="true"/>
-    <listAttribute key="modelCorrectnessInvariants"/>
+    <listAttribute key="modelCorrectnessInvariants">
+        <listEntry value="1NoDuplicateReports"/>
+    </listAttribute>
     <listAttribute key="modelCorrectnessProperties">
         <listEntry value="1Termination"/>
         <listEntry value="1Completed"/>
