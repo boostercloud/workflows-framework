@@ -60,7 +60,7 @@ define
     /\ <>[] AllBugsReported
 end define;
 
-fair process main \in { "main1", "main2" }
+fair process main \in {"main1", "main2"}
 variables
   currentBugIndex = -1,
   errors = 0;
@@ -73,14 +73,16 @@ Loop:
       else
         currentBugIndex := CHOOSE b \in DOMAIN bugs: ~bugs[b].processed;
       end if;
-    Process:
+    Report:
+      tickets := Append(tickets, [bugId |-> bugs[currentBugIndex].id]);
+    MarkAsProcessed:
       bugs[currentBugIndex].processed := TRUE;
     Break:
       skip;
   end while;
 end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "25d3c836" /\ chksum(tla) = "60f6ccb5")
+\* BEGIN TRANSLATION (chksum(pcal) = "12c951dd" /\ chksum(tla) = "22094cfe")
 VARIABLES bugs, lockStorage, tickets, pc
 
 (* define statement *)
@@ -104,15 +106,15 @@ VARIABLES currentBugIndex, errors
 
 vars == << bugs, lockStorage, tickets, pc, currentBugIndex, errors >>
 
-ProcSet == ({ "main1", "main2" })
+ProcSet == ({"main1", "main2"})
 
 Init == (* Global variables *)
         /\ bugs = [ o \in 1..BugCount |-> [ id |-> o, processed |-> FALSE ] ]
         /\ lockStorage = <<>>
         /\ tickets = <<>>
         (* Process main *)
-        /\ currentBugIndex = [self \in { "main1", "main2" } |-> -1]
-        /\ errors = [self \in { "main1", "main2" } |-> 0]
+        /\ currentBugIndex = [self \in {"main1", "main2"} |-> -1]
+        /\ errors = [self \in {"main1", "main2"} |-> 0]
         /\ pc = [self \in ProcSet |-> "Loop"]
 
 Loop(self) == /\ pc[self] = "Loop"
@@ -127,13 +129,19 @@ ChooseBug(self) == /\ pc[self] = "ChooseBug"
                          THEN /\ pc' = [pc EXCEPT ![self] = "Break"]
                               /\ UNCHANGED currentBugIndex
                          ELSE /\ currentBugIndex' = [currentBugIndex EXCEPT ![self] = CHOOSE b \in DOMAIN bugs: ~bugs[b].processed]
-                              /\ pc' = [pc EXCEPT ![self] = "Process"]
+                              /\ pc' = [pc EXCEPT ![self] = "Report"]
                    /\ UNCHANGED << bugs, lockStorage, tickets, errors >>
 
-Process(self) == /\ pc[self] = "Process"
-                 /\ bugs' = [bugs EXCEPT ![currentBugIndex[self]].processed = TRUE]
-                 /\ pc' = [pc EXCEPT ![self] = "Break"]
-                 /\ UNCHANGED << lockStorage, tickets, currentBugIndex, errors >>
+Report(self) == /\ pc[self] = "Report"
+                /\ tickets' = Append(tickets, [bugId |-> bugs[currentBugIndex[self]].id])
+                /\ pc' = [pc EXCEPT ![self] = "MarkAsProcessed"]
+                /\ UNCHANGED << bugs, lockStorage, currentBugIndex, errors >>
+
+MarkAsProcessed(self) == /\ pc[self] = "MarkAsProcessed"
+                         /\ bugs' = [bugs EXCEPT ![currentBugIndex[self]].processed = TRUE]
+                         /\ pc' = [pc EXCEPT ![self] = "Break"]
+                         /\ UNCHANGED << lockStorage, tickets, currentBugIndex, 
+                                         errors >>
 
 Break(self) == /\ pc[self] = "Break"
                /\ TRUE
@@ -141,18 +149,19 @@ Break(self) == /\ pc[self] = "Break"
                /\ UNCHANGED << bugs, lockStorage, tickets, currentBugIndex, 
                                errors >>
 
-main(self) == Loop(self) \/ ChooseBug(self) \/ Process(self) \/ Break(self)
+main(self) == Loop(self) \/ ChooseBug(self) \/ Report(self)
+                 \/ MarkAsProcessed(self) \/ Break(self)
 
 (* Allow infinite stuttering to prevent deadlock on termination. *)
 Terminating == /\ \A self \in ProcSet: pc[self] = "Done"
                /\ UNCHANGED vars
 
-Next == (\E self \in { "main1", "main2" }: main(self))
+Next == (\E self \in {"main1", "main2"}: main(self))
            \/ Terminating
 
 Spec == /\ Init /\ [][Next]_vars
         /\ WF_vars(Next)
-        /\ \A self \in { "main1", "main2" } : WF_vars(main(self))
+        /\ \A self \in {"main1", "main2"} : WF_vars(main(self))
 
 Termination == <>(\A self \in ProcSet: pc[self] = "Done")
 
