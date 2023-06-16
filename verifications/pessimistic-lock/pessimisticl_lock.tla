@@ -1,5 +1,5 @@
 ------------------------- MODULE pessimisticl_lock -------------------------
-EXTENDS Integers, Sequences
+EXTENDS Integers, Sequences, TLC
 CONSTANT BugCount
 (***************************************************************************)
 (* Algorithm to perform a single step action in an external system in a    *)
@@ -54,6 +54,15 @@ define
     \A b \in DOMAIN bugs:
     \E t \in DOMAIN tickets:
       bugs[b].id = tickets[t].bugId
+  
+  Min(set) == CHOOSE v \in set: \A v2 \in set \ {v}: v < v2
+
+  HasOldestLockFor(id, prc) ==
+    IF lockStorage = <<>> THEN FALSE ELSE
+    LET 
+      locksForId == SelectSeq(lockStorage, LAMBDA l: l.id = id)
+      oldestLockIndex == Min(DOMAIN locksForId)
+    IN locksForId[oldestLockIndex].prc = prc
 
   Completed ==
     /\ <>[] AllBugsMarked
@@ -73,6 +82,21 @@ Loop:
       else
         currentBugIndex := CHOOSE b \in DOMAIN bugs: ~bugs[b].processed;
       end if;
+    RequestLock:
+      (*********************************************************************)
+      (* The check is not needed in the implementation, we can safely      *)
+      (* insert a new lock on every attempt and have the older locks       *)
+      (* expire, but the model checker will get into an infinite loop if   *)
+      (* locks keep getting added.                                         *)
+      (*********************************************************************)
+      if ~\E l \in DOMAIN lockStorage: lockStorage[l].id = bugs[currentBugIndex].id then
+        lockStorage :=
+          Append(lockStorage, [prc |-> self, id |-> bugs[currentBugIndex].id]);
+      end if;
+    VerifyLock:
+      if ~HasOldestLockFor(bugs[currentBugIndex].id, self) then
+        goto Break;
+      end if;
     Report:
       tickets := Append(tickets, [bugId |-> bugs[currentBugIndex].id]);
     MarkAsProcessed:
@@ -82,7 +106,7 @@ Loop:
   end while;
 end process;
 end algorithm;*)
-\* BEGIN TRANSLATION (chksum(pcal) = "12c951dd" /\ chksum(tla) = "22094cfe")
+\* BEGIN TRANSLATION (chksum(pcal) = "733d5c99" /\ chksum(tla) = "3a21be3b")
 VARIABLES bugs, lockStorage, tickets, pc
 
 (* define statement *)
@@ -97,6 +121,15 @@ AllBugsReported ==
   \A b \in DOMAIN bugs:
   \E t \in DOMAIN tickets:
     bugs[b].id = tickets[t].bugId
+
+Min(set) == CHOOSE v \in set: \A v2 \in set \ {v}: v < v2
+
+HasOldestLockFor(id, prc) ==
+  IF lockStorage = <<>> THEN FALSE ELSE
+  LET
+    locksForId == SelectSeq(lockStorage, LAMBDA l: l.id = id)
+    oldestLockIndex == Min(DOMAIN locksForId)
+  IN locksForId[oldestLockIndex].prc = prc
 
 Completed ==
   /\ <>[] AllBugsMarked
@@ -129,8 +162,23 @@ ChooseBug(self) == /\ pc[self] = "ChooseBug"
                          THEN /\ pc' = [pc EXCEPT ![self] = "Break"]
                               /\ UNCHANGED currentBugIndex
                          ELSE /\ currentBugIndex' = [currentBugIndex EXCEPT ![self] = CHOOSE b \in DOMAIN bugs: ~bugs[b].processed]
-                              /\ pc' = [pc EXCEPT ![self] = "Report"]
+                              /\ pc' = [pc EXCEPT ![self] = "RequestLock"]
                    /\ UNCHANGED << bugs, lockStorage, tickets, errors >>
+
+RequestLock(self) == /\ pc[self] = "RequestLock"
+                     /\ IF ~\E l \in DOMAIN lockStorage: lockStorage[l].id = bugs[currentBugIndex[self]].id
+                           THEN /\ lockStorage' = Append(lockStorage, [prc |-> self, id |-> bugs[currentBugIndex[self]].id])
+                           ELSE /\ TRUE
+                                /\ UNCHANGED lockStorage
+                     /\ pc' = [pc EXCEPT ![self] = "VerifyLock"]
+                     /\ UNCHANGED << bugs, tickets, currentBugIndex, errors >>
+
+VerifyLock(self) == /\ pc[self] = "VerifyLock"
+                    /\ IF ~HasOldestLockFor(bugs[currentBugIndex[self]].id, self)
+                          THEN /\ pc' = [pc EXCEPT ![self] = "Break"]
+                          ELSE /\ pc' = [pc EXCEPT ![self] = "Report"]
+                    /\ UNCHANGED << bugs, lockStorage, tickets, 
+                                    currentBugIndex, errors >>
 
 Report(self) == /\ pc[self] = "Report"
                 /\ tickets' = Append(tickets, [bugId |-> bugs[currentBugIndex[self]].id])
@@ -149,7 +197,8 @@ Break(self) == /\ pc[self] = "Break"
                /\ UNCHANGED << bugs, lockStorage, tickets, currentBugIndex, 
                                errors >>
 
-main(self) == Loop(self) \/ ChooseBug(self) \/ Report(self)
+main(self) == Loop(self) \/ ChooseBug(self) \/ RequestLock(self)
+                 \/ VerifyLock(self) \/ Report(self)
                  \/ MarkAsProcessed(self) \/ Break(self)
 
 (* Allow infinite stuttering to prevent deadlock on termination. *)
